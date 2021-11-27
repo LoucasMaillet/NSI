@@ -1,0 +1,600 @@
+Loop n°0:
+
+	Random: 79740
+	Function 'rechercheDic' finished in 4.0531158447265625e-06 seconds.
+	Function 'rechercheListe' finished in 0.0034074783325195312 seconds.
+
+Loop n°1:
+
+	Random: 18732
+	Function 'rechercheDic' finished in 2.86102294921875e-06 seconds.
+	Function 'rechercheListe' finished in 0.017833471298217773 seconds.
+
+Loop n°2:
+
+	Random: 63002
+	Function 'rechercheDic' finished in 2.384185791015625e-06 seconds.
+	Function 'rechercheListe' finished in 0.020196199417114258 seconds.
+
+Loop n°3:
+
+	Random: 45038
+	Function 'rechercheDic' finished in 2.384185791015625e-06 seconds.
+	Function 'rechercheListe' finished in 0.0013079643249511719 seconds.
+
+Loop n°4:
+
+	Random: 60327
+	Function 'rechercheDic' finished in 1.430511474609375e-06 seconds.
+	Function 'rechercheListe' finished in 0.008337736129760742 seconds.
+
+Loop n°5:
+
+	Random: 58163
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.01049661636352539 seconds.
+
+Loop n°6:
+
+	Random: 25037
+	Function 'rechercheDic' finished in 2.86102294921875e-06 seconds.
+	Function 'rechercheListe' finished in 0.008637189865112305 seconds.
+
+Loop n°7:
+
+	Random: 97720
+	Function 'rechercheDic' finished in 2.1457672119140625e-06 seconds.
+	Function 'rechercheListe' finished in 0.020657777786254883 seconds.
+
+Loop n°8:
+
+	Random: 398
+	Function 'rechercheDic' finished in 2.1457672119140625e-06 seconds.
+	Function 'rechercheListe' finished in 0.012804508209228516 seconds.
+
+Loop n°9:
+
+	Random: 51377
+	Function 'rechercheDic' finished in 1.6689300537109375e-06 seconds.
+	Function 'rechercheListe' finished in 0.01305842399597168 seconds.
+
+Loop n°10:
+
+	Random: 31783
+	Function 'rechercheDic' finished in 2.1457672119140625e-06 seconds.
+	Function 'rechercheListe' finished in 0.002354145050048828 seconds.
+
+Loop n°11:
+
+	Random: 80671
+	Function 'rechercheDic' finished in 1.1920928955078125e-06 seconds.
+	Function 'rechercheListe' finished in 0.0011959075927734375 seconds.
+
+Loop n°12:
+
+	Random: 32569
+	Function 'rechercheDic' finished in 1.430511474609375e-06 seconds.
+	Function 'rechercheListe' finished in 0.013106346130371094 seconds.
+
+Loop n°13:
+
+	Random: 51774
+	Function 'rechercheDic' finished in 2.86102294921875e-06 seconds.
+	Function 'rechercheListe' finished in 0.0014352798461914062 seconds.
+
+Loop n°14:
+
+	Random: 93954
+	Function 'rechercheDic' finished in 1.430511474609375e-06 seconds.
+	Function 'rechercheListe' finished in 0.019366025924682617 seconds.
+
+Loop n°15:
+
+	Random: 79537
+	Function 'rechercheDic' finished in 2.384185791015625e-06 seconds.
+	Function 'rechercheListe' finished in 0.002914905548095703 seconds.
+
+Loop n°16:
+
+	Random: 88963
+	Function 'rechercheDic' finished in 1.1920928955078125e-06 seconds.
+	Function 'rechercheListe' finished in 0.01726388931274414 seconds.
+
+Loop n°17:
+
+	Random: 90991
+	Function 'rechercheDic' finished in 2.86102294921875e-06 seconds.
+	Function 'rechercheListe' finished in 0.01782989501953125 seconds.
+
+Loop n°18:
+
+	Random: 94117
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.005175113677978516 seconds.
+
+Loop n°19:
+
+	Random: 27197
+	Function 'rechercheDic' finished in 1.430511474609375e-06 seconds.
+	Function 'rechercheListe' finished in 0.02249741554260254 seconds.
+
+Loop n°20:
+
+	Random: 32347
+	Function 'rechercheDic' finished in 1.9073486328125e-06 seconds.
+	Function 'rechercheListe' finished in 0.005430936813354492 seconds.
+
+Loop n°21:
+
+	Random: 38565
+	Function 'rechercheDic' finished in 2.384185791015625e-06 seconds.
+	Function 'rechercheListe' finished in 0.0069048404693603516 seconds.
+
+Loop n°22:
+
+	Random: 60097
+	Function 'rechercheDic' finished in 2.1457672119140625e-06 seconds.
+	Function 'rechercheListe' finished in 0.014033794403076172 seconds.
+
+Loop n°23:
+
+	Random: 13839
+	Function 'rechercheDic' finished in 1.9073486328125e-06 seconds.
+	Function 'rechercheListe' finished in 0.0020895004272460938 seconds.
+
+Loop n°24:
+
+	Random: 52325
+	Function 'rechercheDic' finished in 9.5367431640625e-07 seconds.
+	Function 'rechercheListe' finished in 0.017841100692749023 seconds.
+
+Loop n°25:
+
+	Random: 85882
+	Function 'rechercheDic' finished in 3.5762786865234375e-06 seconds.
+	Function 'rechercheListe' finished in 0.01813673973083496 seconds.
+
+Loop n°26:
+
+	Random: 32642
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.02171778678894043 seconds.
+
+Loop n°27:
+
+	Random: 61754
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.01884293556213379 seconds.
+
+Loop n°28:
+
+	Random: 73287
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.00806117057800293 seconds.
+
+Loop n°29:
+
+	Random: 15464
+	Function 'rechercheDic' finished in 1.6689300537109375e-06 seconds.
+	Function 'rechercheListe' finished in 0.019639968872070312 seconds.
+
+Loop n°30:
+
+	Random: 62097
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.005064964294433594 seconds.
+
+Loop n°31:
+
+	Random: 6351
+	Function 'rechercheDic' finished in 1.9073486328125e-06 seconds.
+	Function 'rechercheListe' finished in 0.018786191940307617 seconds.
+
+Loop n°32:
+
+	Random: 80679
+	Function 'rechercheDic' finished in 2.1457672119140625e-06 seconds.
+	Function 'rechercheListe' finished in 0.010348796844482422 seconds.
+
+Loop n°33:
+
+	Random: 94504
+	Function 'rechercheDic' finished in 1.6689300537109375e-06 seconds.
+	Function 'rechercheListe' finished in 0.002922534942626953 seconds.
+
+Loop n°34:
+
+	Random: 20036
+	Function 'rechercheDic' finished in 1.430511474609375e-06 seconds.
+	Function 'rechercheListe' finished in 0.00946950912475586 seconds.
+
+Loop n°35:
+
+	Random: 69575
+	Function 'rechercheDic' finished in 2.1457672119140625e-06 seconds.
+	Function 'rechercheListe' finished in 0.02102828025817871 seconds.
+
+Loop n°36:
+
+	Random: 45945
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.021410703659057617 seconds.
+
+Loop n°37:
+
+	Random: 62225
+	Function 'rechercheDic' finished in 2.86102294921875e-06 seconds.
+	Function 'rechercheListe' finished in 0.007351398468017578 seconds.
+
+Loop n°38:
+
+	Random: 51628
+	Function 'rechercheDic' finished in 2.1457672119140625e-06 seconds.
+	Function 'rechercheListe' finished in 0.01385354995727539 seconds.
+
+Loop n°39:
+
+	Random: 12137
+	Function 'rechercheDic' finished in 2.384185791015625e-06 seconds.
+	Function 'rechercheListe' finished in 0.004075050354003906 seconds.
+
+Loop n°40:
+
+	Random: 50366
+	Function 'rechercheDic' finished in 2.1457672119140625e-06 seconds.
+	Function 'rechercheListe' finished in 0.0028417110443115234 seconds.
+
+Loop n°41:
+
+	Random: 71976
+	Function 'rechercheDic' finished in 1.9073486328125e-06 seconds.
+	Function 'rechercheListe' finished in 0.023880481719970703 seconds.
+
+Loop n°42:
+
+	Random: 16481
+	Function 'rechercheDic' finished in 3.0994415283203125e-06 seconds.
+	Function 'rechercheListe' finished in 0.006089448928833008 seconds.
+
+Loop n°43:
+
+	Random: 79950
+	Function 'rechercheDic' finished in 1.6689300537109375e-06 seconds.
+	Function 'rechercheListe' finished in 0.017771005630493164 seconds.
+
+Loop n°44:
+
+	Random: 76073
+	Function 'rechercheDic' finished in 2.384185791015625e-06 seconds.
+	Function 'rechercheListe' finished in 0.01954174041748047 seconds.
+
+Loop n°45:
+
+	Random: 10716
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.008713483810424805 seconds.
+
+Loop n°46:
+
+	Random: 20878
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.02197861671447754 seconds.
+
+Loop n°47:
+
+	Random: 3439
+	Function 'rechercheDic' finished in 2.384185791015625e-06 seconds.
+	Function 'rechercheListe' finished in 0.01796889305114746 seconds.
+
+Loop n°48:
+
+	Random: 99513
+	Function 'rechercheDic' finished in 2.384185791015625e-06 seconds.
+	Function 'rechercheListe' finished in 0.008878707885742188 seconds.
+
+Loop n°49:
+
+	Random: 17647
+	Function 'rechercheDic' finished in 2.384185791015625e-06 seconds.
+	Function 'rechercheListe' finished in 0.014289617538452148 seconds.
+
+Loop n°50:
+
+	Random: 57992
+	Function 'rechercheDic' finished in 2.86102294921875e-06 seconds.
+	Function 'rechercheListe' finished in 0.015486717224121094 seconds.
+
+Loop n°51:
+
+	Random: 44900
+	Function 'rechercheDic' finished in 2.1457672119140625e-06 seconds.
+	Function 'rechercheListe' finished in 0.023114442825317383 seconds.
+
+Loop n°52:
+
+	Random: 80017
+	Function 'rechercheDic' finished in 3.337860107421875e-06 seconds.
+	Function 'rechercheListe' finished in 0.02260422706604004 seconds.
+
+Loop n°53:
+
+	Random: 626
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.0019609928131103516 seconds.
+
+Loop n°54:
+
+	Random: 11044
+	Function 'rechercheDic' finished in 1.1920928955078125e-06 seconds.
+	Function 'rechercheListe' finished in 0.0005333423614501953 seconds.
+
+Loop n°55:
+
+	Random: 47026
+	Function 'rechercheDic' finished in 1.1920928955078125e-06 seconds.
+	Function 'rechercheListe' finished in 0.017710208892822266 seconds.
+
+Loop n°56:
+
+	Random: 49196
+	Function 'rechercheDic' finished in 1.9073486328125e-06 seconds.
+	Function 'rechercheListe' finished in 0.011272668838500977 seconds.
+
+Loop n°57:
+
+	Random: 41392
+	Function 'rechercheDic' finished in 2.1457672119140625e-06 seconds.
+	Function 'rechercheListe' finished in 0.00861215591430664 seconds.
+
+Loop n°58:
+
+	Random: 97118
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.010171890258789062 seconds.
+
+Loop n°59:
+
+	Random: 57084
+	Function 'rechercheDic' finished in 2.1457672119140625e-06 seconds.
+	Function 'rechercheListe' finished in 0.0058858394622802734 seconds.
+
+Loop n°60:
+
+	Random: 72195
+	Function 'rechercheDic' finished in 2.384185791015625e-06 seconds.
+	Function 'rechercheListe' finished in 0.02053380012512207 seconds.
+
+Loop n°61:
+
+	Random: 4773
+	Function 'rechercheDic' finished in 3.0994415283203125e-06 seconds.
+	Function 'rechercheListe' finished in 0.015087366104125977 seconds.
+
+Loop n°62:
+
+	Random: 92978
+	Function 'rechercheDic' finished in 3.337860107421875e-06 seconds.
+	Function 'rechercheListe' finished in 0.01827692985534668 seconds.
+
+Loop n°63:
+
+	Random: 6975
+	Function 'rechercheDic' finished in 3.0994415283203125e-06 seconds.
+	Function 'rechercheListe' finished in 0.014134407043457031 seconds.
+
+Loop n°64:
+
+	Random: 14241
+	Function 'rechercheDic' finished in 2.86102294921875e-06 seconds.
+	Function 'rechercheListe' finished in 0.02167224884033203 seconds.
+
+Loop n°65:
+
+	Random: 92796
+	Function 'rechercheDic' finished in 3.0994415283203125e-06 seconds.
+	Function 'rechercheListe' finished in 0.010761499404907227 seconds.
+
+Loop n°66:
+
+	Random: 78471
+	Function 'rechercheDic' finished in 2.86102294921875e-06 seconds.
+	Function 'rechercheListe' finished in 0.02014780044555664 seconds.
+
+Loop n°67:
+
+	Random: 92504
+	Function 'rechercheDic' finished in 3.5762786865234375e-06 seconds.
+	Function 'rechercheListe' finished in 0.01633429527282715 seconds.
+
+Loop n°68:
+
+	Random: 65685
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.006557464599609375 seconds.
+
+Loop n°69:
+
+	Random: 93601
+	Function 'rechercheDic' finished in 2.1457672119140625e-06 seconds.
+	Function 'rechercheListe' finished in 0.020000457763671875 seconds.
+
+Loop n°70:
+
+	Random: 67042
+	Function 'rechercheDic' finished in 3.0994415283203125e-06 seconds.
+	Function 'rechercheListe' finished in 0.0070095062255859375 seconds.
+
+Loop n°71:
+
+	Random: 47213
+	Function 'rechercheDic' finished in 4.0531158447265625e-06 seconds.
+	Function 'rechercheListe' finished in 0.011772871017456055 seconds.
+
+Loop n°72:
+
+	Random: 36503
+	Function 'rechercheDic' finished in 3.814697265625e-06 seconds.
+	Function 'rechercheListe' finished in 0.00485682487487793 seconds.
+
+Loop n°73:
+
+	Random: 64325
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.025325298309326172 seconds.
+
+Loop n°74:
+
+	Random: 58736
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.018867969512939453 seconds.
+
+Loop n°75:
+
+	Random: 3091
+	Function 'rechercheDic' finished in 2.384185791015625e-06 seconds.
+	Function 'rechercheListe' finished in 0.0022611618041992188 seconds.
+
+Loop n°76:
+
+	Random: 93934
+	Function 'rechercheDic' finished in 1.430511474609375e-06 seconds.
+	Function 'rechercheListe' finished in 0.01853656768798828 seconds.
+
+Loop n°77:
+
+	Random: 51104
+	Function 'rechercheDic' finished in 2.384185791015625e-06 seconds.
+	Function 'rechercheListe' finished in 0.016620159149169922 seconds.
+
+Loop n°78:
+
+	Random: 55742
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.013121843338012695 seconds.
+
+Loop n°79:
+
+	Random: 3272
+	Function 'rechercheDic' finished in 1.9073486328125e-06 seconds.
+	Function 'rechercheListe' finished in 0.0024127960205078125 seconds.
+
+Loop n°80:
+
+	Random: 91556
+	Function 'rechercheDic' finished in 1.6689300537109375e-06 seconds.
+	Function 'rechercheListe' finished in 0.002199411392211914 seconds.
+
+Loop n°81:
+
+	Random: 56715
+	Function 'rechercheDic' finished in 1.6689300537109375e-06 seconds.
+	Function 'rechercheListe' finished in 0.015314102172851562 seconds.
+
+Loop n°82:
+
+	Random: 93183
+	Function 'rechercheDic' finished in 1.9073486328125e-06 seconds.
+	Function 'rechercheListe' finished in 0.00710296630859375 seconds.
+
+Loop n°83:
+
+	Random: 997
+	Function 'rechercheDic' finished in 1.430511474609375e-06 seconds.
+	Function 'rechercheListe' finished in 0.015943527221679688 seconds.
+
+Loop n°84:
+
+	Random: 86851
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.0043332576751708984 seconds.
+
+Loop n°85:
+
+	Random: 2246
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.020238876342773438 seconds.
+
+Loop n°86:
+
+	Random: 58263
+	Function 'rechercheDic' finished in 3.337860107421875e-06 seconds.
+	Function 'rechercheListe' finished in 0.009141206741333008 seconds.
+
+Loop n°87:
+
+	Random: 6948
+	Function 'rechercheDic' finished in 1.9073486328125e-06 seconds.
+	Function 'rechercheListe' finished in 0.020258665084838867 seconds.
+
+Loop n°88:
+
+	Random: 35174
+	Function 'rechercheDic' finished in 4.0531158447265625e-06 seconds.
+	Function 'rechercheListe' finished in 0.0017461776733398438 seconds.
+
+Loop n°89:
+
+	Random: 54143
+	Function 'rechercheDic' finished in 1.6689300537109375e-06 seconds.
+	Function 'rechercheListe' finished in 0.005533695220947266 seconds.
+
+Loop n°90:
+
+	Random: 45197
+	Function 'rechercheDic' finished in 2.384185791015625e-06 seconds.
+	Function 'rechercheListe' finished in 0.0008375644683837891 seconds.
+
+Loop n°91:
+
+	Random: 31707
+	Function 'rechercheDic' finished in 1.6689300537109375e-06 seconds.
+	Function 'rechercheListe' finished in 0.02207016944885254 seconds.
+
+Loop n°92:
+
+	Random: 60611
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.008203983306884766 seconds.
+
+Loop n°93:
+
+	Random: 15108
+	Function 'rechercheDic' finished in 3.0994415283203125e-06 seconds.
+	Function 'rechercheListe' finished in 0.022600889205932617 seconds.
+
+Loop n°94:
+
+	Random: 68372
+	Function 'rechercheDic' finished in 2.86102294921875e-06 seconds.
+	Function 'rechercheListe' finished in 0.005728006362915039 seconds.
+
+Loop n°95:
+
+	Random: 55668
+	Function 'rechercheDic' finished in 2.1457672119140625e-06 seconds.
+	Function 'rechercheListe' finished in 0.017360448837280273 seconds.
+
+Loop n°96:
+
+	Random: 771
+	Function 'rechercheDic' finished in 2.1457672119140625e-06 seconds.
+	Function 'rechercheListe' finished in 0.0049152374267578125 seconds.
+
+Loop n°97:
+
+	Random: 87712
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.01799297332763672 seconds.
+
+Loop n°98:
+
+	Random: 43680
+	Function 'rechercheDic' finished in 2.6226043701171875e-06 seconds.
+	Function 'rechercheListe' finished in 0.0033278465270996094 seconds.
+
+Loop n°99:
+
+	Random: 15342
+	Function 'rechercheDic' finished in 2.384185791015625e-06 seconds.
+	Function 'rechercheListe' finished in 0.0208892822265625 seconds.
+
