@@ -21,6 +21,7 @@ def checkType(ctx):
     ----------
     Work only on function with parameters specified in his
     declaration, example: def foo(a : str, b : int): ...
+    Can not copy the parameters in the help, just the docstring.
 
     Parameters
     ----------    
@@ -40,7 +41,7 @@ def checkType(ctx):
         
     f_args = list(f_kwargs.items())    
     f_l_args = len(f_args)
-
+    
     def wrapped(*args, **kwargs):
         l_args = len(args)
         l_t_args = l_args + len(kwargs)
@@ -60,7 +61,10 @@ def checkType(ctx):
                     f"In '{ctx.__name__}'() got an unexcepected positionnal argument type '{f_args[p][0]}', should be {f_args[p][1].__name__}")
 
         return ctx(*args, **kwargs)
-
+    
+    wrapped.__name__ = ctx.__name__
+    wrapped.__doc__ = ctx.__doc__
+    
     return wrapped
 
 
