@@ -9,12 +9,9 @@ Created on Fri Nov 19 10:16:32 2021
 # UTILS
 
 
-import re, inspect
-
-
-def checkType(func):
+def checkType(ctx):
     """
-        
+
     Description
     ----------
     Wrap a function to overide it if the specified arguments
@@ -24,10 +21,10 @@ def checkType(func):
     ----------
     Work only on function with parameters specified in his
     declaration, example: def foo(a : str, b : int): ...
-    
+
     Parameters
     ----------    
-    func : FUNCTION
+    ctx : FUNCTION
         The function you want to supervise.
 
     Returns
@@ -37,30 +34,34 @@ def checkType(func):
 
     """
     f_args = []
-    f_kwargs = {}
-    for args in re.findall(r"(?<=\().*?(?=\))", inspect.getsourcelines(func)[0][1]):
-        for arg in args.replace(" ", "").split(","):
-            [varname, vartype] = arg.split(":")
-            f_kwargs[varname] = vartype
-            f_args.append(vartype)
+    f_kwargs = ctx.__annotations__
+
+    if "return" in f_kwargs:
+        del f_kwargs["return"]
+    for args in f_kwargs:
+        f_args.append(f_kwargs[args])
 
     f_l_args = len(f_args)
 
     def wrapped(*args, **kwargs):
-        l_args = len(args) + len(kwargs)
-        if l_args > f_l_args: raise TypeError(
-                    f"In '{func.__name__}'() takes exactly {f_l_args} arguments ({l_args} given)")
+        l_args = len(args)
+        l_t_args = l_args + len(kwargs)
+        if l_t_args > f_l_args:
+            raise TypeError(
+                f"In '{ctx.__name__}'() takes exactly {f_l_args} arguments ({l_t_args} given)")
         for p in kwargs:
-            if not p in f_kwargs: raise TypeError(f"{func.__name__}() got an unexpected keyword argument '{p}'")
-            if type(kwargs[p]) != eval(f_kwargs[p]):
+            if not p in f_kwargs:
                 raise TypeError(
-                    f"In '{func.__name__}'() got an unexcepected keyword argument type, '{p}' should be {f_kwargs[p][0]}.")
-        for p in range(len(args)):
-            if type(args[p]) != eval(f_args[p]):
+                    f"{ctx.__name__}() got an unexpected keyword argument '{p}'")
+            if type(kwargs[p]) != f_kwargs[p]:
                 raise TypeError(
-                    f"In '{func.__name__}'() got an unexcepected positionnal argument type, should be {f_args[p]}.")
-        
-        return func(*args, **kwargs)
+                    f"In '{ctx.__name__}'() got an unexcepected keyword argument type, '{p}' should be {f_kwargs[p].__name__}")
+        for p in range(l_args):
+            if type(args[p]) != f_args[p]:
+                raise TypeError(
+                    f"In '{ctx.__name__}'() got an unexcepected positionnal argument type, should be {f_args[p].__name__}")
+
+        return ctx(*args, **kwargs)
 
     return wrapped
 
