@@ -33,14 +33,12 @@ def checkType(ctx):
         The wrapped function.
 
     """
-    f_args = []
     f_kwargs = ctx.__annotations__
 
     if "return" in f_kwargs:
         del f_kwargs["return"]
-    for args in f_kwargs:
-        f_args.append(f_kwargs[args])
-
+        
+    f_args = list(f_kwargs.items())    
     f_l_args = len(f_args)
 
     def wrapped(*args, **kwargs):
@@ -57,9 +55,9 @@ def checkType(ctx):
                 raise TypeError(
                     f"In '{ctx.__name__}'() got an unexcepected keyword argument type, '{p}' should be {f_kwargs[p].__name__}")
         for p in range(l_args):
-            if type(args[p]) != f_args[p]:
+            if type(args[p]) != f_args[p][1]:
                 raise TypeError(
-                    f"In '{ctx.__name__}'() got an unexcepected positionnal argument type, should be {f_args[p].__name__}")
+                    f"In '{ctx.__name__}'() got an unexcepected positionnal argument type '{f_args[p][0]}', should be {f_args[p][1].__name__}")
 
         return ctx(*args, **kwargs)
 
