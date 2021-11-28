@@ -177,6 +177,7 @@ def recherche_moyenne(nId: int, data: list) -> float:
         if student[2] == nId:
             return note_moyenne(student[3])
 
+
 # EXERCICE 2
 
 
