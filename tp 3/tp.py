@@ -116,7 +116,7 @@ def moyenne_generale(data: list) -> float:
 
     Returns
     -------
-    total : FLOAT
+    FLOAT
         The average of database.
 
     """
@@ -141,7 +141,7 @@ def top_etudiant(data: list) -> tuple:
 
     Returns
     -------
-    topStudent : TUPLE
+    TUPLE
         The best student name and first name.
 
     """
@@ -256,7 +256,7 @@ def tous_ingredients(data: dict) -> list:
 
     Returns
     -------
-    LIST
+    res : LIST
         All the ingredients found.
 
     """
