@@ -96,7 +96,7 @@ def note_moyenne(notes:  list) -> float:
         The average of liste.
 
     """
-    return round(sum(notes)/len(notes), 2)
+    return round(sum(notes)/(len(notes) or 1), 2)
 
 
 # QUESTION 2
@@ -352,6 +352,7 @@ if __name__ == "__main__":
     # EXERCICE 1
 
     print(note_moyenne([12, 8, 14, 6, 5, 15]))
+    print(note_moyenne([]))
 
     print(moyenne_generale(BaseUPMC))
 
