@@ -21,50 +21,24 @@ def checkType(callback):
     ----------
     Work only on function with parameters specified in his
     declaration, example: def foo(a : str, b : int): ...
-    Can not copy the parameters in the help, just the docstring.
 
     Parameters
     ----------    
-    ctx : FUNCTION
+    callback : FUNCTION
         The function you want to supervise.
 
     Returns
     -------
-    callback : FUNCTION
-        The wrapped function.
+    FUNCTION
+        The new wrapped function.
 
     """
-    f_kwargs = callback.__annotations__
+    args = callback.__annotations__
+    if 'return' in args: del args['return']
+    str_args = '\n\t'.join([f"""if not isinstance({arg},{ args[arg].__name__}): raise TypeError("In {callback.__name__}() got an unexpected keyword argument type: '{arg}' should be {args[arg].__name__}")""" for arg in args])
+    exec(f"""def {callback.__name__}({",".join([f"{arg}:{ args[arg].__name__}" for arg in  args]) }):\n\t'''{callback.__doc__}'''\n\t{str_args}\n\treturn callback({",".join([arg for arg in args])})""", locals())
+    return locals()[callback.__name__]
 
-    if "return" in f_kwargs:
-        del f_kwargs["return"]
-
-    f_args = list(f_kwargs.items())
-    f_l_args = len(f_args)
-
-    def wrapped(*args, **kwargs):
-        l_args = len(args)
-        l_t_args = l_args + len(kwargs)
-        if l_t_args > f_l_args:
-            raise TypeError(
-                f"In '{callback.__name__}'() takes exactly {f_l_args} arguments ({l_t_args} given)")
-        for p in kwargs:
-            if not p in f_kwargs:
-                raise TypeError(
-                    f"{callback.__name__}() got an unexpected keyword argument '{p}'")
-            if not isinstance(kwargs[p], f_kwargs[p]):
-                raise TypeError(
-                    f"In '{callback.__name__}'() got an unexcepected keyword argument type: '{p}' should be {f_kwargs[p].__name__}")
-        for p in range(l_args):
-            if not isinstance(args[p], f_args[p][1]):
-                raise TypeError(
-                    f"In '{callback.__name__}'() got an unexcepected positionnal argument type: '{f_args[p][0]}' should be {f_args[p][1].__name__}")
-
-        return callback(*args, **kwargs)
-
-    wrapped.__name__, wrapped.__doc__ = callback.__name__, callback.__doc__
-
-    return wrapped
 
 
 # EXERCICE 1
@@ -176,9 +150,7 @@ def recherche_moyenne(nId: int, data: list) -> float:
         The student's average.
 
     """
-    for student in data:
-        if student[2] == nId:
-            return note_moyenne(student[3])
+    return {s[2]: note_moyenne(s[3]) for s in data}.get(nId)
 
 
 # EXERCICE 2
@@ -264,12 +236,7 @@ def tous_ingredients(data: dict) -> list:
         All the ingredients found.
 
     """
-    res = []
-    for r in data:
-        for i in data[r]:
-            if i not in res:
-                res.append(i)
-    return res
+    return list(set([i for r in data for i in data[r]]))
 
 
 # QUESTION 4
@@ -293,6 +260,7 @@ def table_ingredients(data: dict) -> dict:
     -------
     DICTIONNARY
         The ingredients sorted.
+        
     """
     return {i: [r for r in data if i in data[r]] for i in tous_ingredients(data)}
 
@@ -319,7 +287,7 @@ def ingredient_principal(data: dict) -> str:
         The most used ingredients.
 
     """
-    return (lambda d: d[max(d)])({len(r): i for [i, r] in table_ingredients(data).items()})
+    return (lambda d: d[max(d)])({len(r): i for (i, r) in table_ingredients(data).items()})
 
 
 # QUESTION 6
