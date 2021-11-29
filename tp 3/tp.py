@@ -40,7 +40,6 @@ def checkType(callback):
     return locals()[callback.__name__]
 
 
-
 # EXERCICE 1
 
 
