@@ -35,7 +35,7 @@ def checkType(callback):
     """
     args = callback.__annotations__
     if 'return' in args: del args['return']
-    str_args = '\n\t'.join([f"""if not isinstance({arg},{ args[arg].__name__}): raise TypeError("In {callback.__name__}() got an unexpected keyword argument type: '{arg}' should be {args[arg].__name__}")""" for arg in args])
+    str_args = '\n\t'.join([f"""if not isinstance({arg},{ args[arg].__name__}): raise TypeError("In {callback.__name__}() got an unexpected keyword argument type: '{arg}' should be a {args[arg].__name__}")""" for arg in args])
     exec(f"""def {callback.__name__}({",".join([f"{arg}:{ args[arg].__name__}" for arg in  args]) }):\n\t'''{callback.__doc__}'''\n\t{str_args}\n\treturn callback({",".join([arg for arg in args])})""", locals())
     return locals()[callback.__name__]
 
