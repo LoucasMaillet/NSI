@@ -9,7 +9,7 @@ Created on Fri Nov 19 10:16:32 2021
 # UTILS
 
 
-def checkType(ctx):
+def checkType(callback):
     """
 
     Description
@@ -30,41 +30,40 @@ def checkType(ctx):
 
     Returns
     -------
-    wrapped : FUNCTION
+    callback : FUNCTION
         The wrapped function.
 
     """
-    f_kwargs = ctx.__annotations__
+    f_kwargs = callback.__annotations__
 
     if "return" in f_kwargs:
         del f_kwargs["return"]
-        
-    f_args = list(f_kwargs.items())    
+
+    f_args = list(f_kwargs.items())
     f_l_args = len(f_args)
-    
+
     def wrapped(*args, **kwargs):
         l_args = len(args)
         l_t_args = l_args + len(kwargs)
         if l_t_args > f_l_args:
             raise TypeError(
-                f"In '{ctx.__name__}'() takes exactly {f_l_args} arguments ({l_t_args} given)")
+                f"In '{callback.__name__}'() takes exactly {f_l_args} arguments ({l_t_args} given)")
         for p in kwargs:
             if not p in f_kwargs:
                 raise TypeError(
-                    f"{ctx.__name__}() got an unexpected keyword argument '{p}'")
-            if type(kwargs[p]) != f_kwargs[p]:
+                    f"{callback.__name__}() got an unexpected keyword argument '{p}'")
+            if not isinstance(kwargs[p], f_kwargs[p]):
                 raise TypeError(
-                    f"In '{ctx.__name__}'() got an unexcepected keyword argument type, '{p}' should be {f_kwargs[p].__name__}")
+                    f"In '{callback.__name__}'() got an unexcepected keyword argument type: '{p}' should be {f_kwargs[p].__name__}")
         for p in range(l_args):
-            if type(args[p]) != f_args[p][1]:
+            if not isinstance(args[p], f_args[p][1]):
                 raise TypeError(
-                    f"In '{ctx.__name__}'() got an unexcepected positionnal argument type '{f_args[p][0]}', should be {f_args[p][1].__name__}")
+                    f"In '{callback.__name__}'() got an unexcepected positionnal argument type: '{f_args[p][0]}' should be {f_args[p][1].__name__}")
 
-        return ctx(*args, **kwargs)
-    
-    wrapped.__name__ = ctx.__name__
-    wrapped.__doc__ = ctx.__doc__
-    
+        return callback(*args, **kwargs)
+
+    wrapped.__name__, wrapped.__doc__ = callback.__name__, callback.__doc__
+
     return wrapped
 
 
@@ -81,7 +80,7 @@ BaseUPMC = [('GARGA', 'Amel', 20231343, [12, 8, 11, 17, 9]),
 
 # QUESTION 1
 @checkType
-def note_moyenne(notes:  list) -> float:
+def note_moyenne(notes: list) -> float:
     """
 
     Description
