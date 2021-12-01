@@ -1,31 +1,33 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Nov 19 10:16:32 2021
+TP3 Python: dictionary, list and tuple (n_uplet)
 
-@author: lucas.maillet
+Finished am 20:08 01/12/21.
+By Lucas Maillet.
 """
 
 
 # UTILS
 
 
-def checkType(callback):
+from functools import wraps
+
+
+def strictType(check_return=True):
     """
 
     Description
     ----------
     Wrap a function to overide it if the specified arguments
-    passed haven't the type required. 
-
-    Warning
-    ----------
-    Work only on function with parameters specified in his
-    declaration, example: def foo(a : str, b : int): ...
+    passed haven't the type required.
 
     Parameters
-    ----------    
-    callback : FUNCTION
+    ----------
+    fn : FUNCTION
         The function you want to supervise.
+
+    check_return : BOOLEAN
+        If you want to check the result type or not.
 
     Returns
     -------
@@ -33,11 +35,36 @@ def checkType(callback):
         The new wrapped function.
 
     """
-    args = callback.__annotations__
-    if 'return' in args: del args['return']
-    str_args = '\n\t'.join([f"""if not isinstance({arg},{ args[arg].__name__}): raise TypeError("In {callback.__name__}() got an unexpected keyword argument type: '{arg}' should be a {args[arg].__name__}")""" for arg in args])
-    exec(f"""def {callback.__name__}({",".join([f"{arg}:{ args[arg].__name__}" for arg in  args]) }):\n\t'''{callback.__doc__}'''\n\t{str_args}\n\treturn callback({",".join([arg for arg in args])})""", locals())
-    return locals()[callback.__name__]
+    def wrapper(fn):
+        
+        annotations = fn.__annotations__
+        fn_ = lambda args, kwargs : fn(*args, **kwargs)
+        
+        if 'return' in annotations:
+            restype = annotations.pop('return')
+            if check_return:
+                def fn_(args, kwargs):
+                    res = fn(*args, **kwargs)
+                    if not isinstance(res, restype): raise TypeError(f"{fn.__name__}() return an unexpected type, should be a {restype}")
+                    return res
+                    
+        annotations = annotations.items()
+
+        @wraps(fn)
+        def wrapped(*args, **kwargs):
+            for argid, [arg, argtype] in enumerate(annotations):
+                if arg in kwargs:
+                    if not isinstance(kwargs[arg], argtype):
+                        raise TypeError(
+                            f"{fn.__name__}() got an unexpected keyword argument type: '{arg}' should be a {argtype}")
+                elif argid < len(args) and not isinstance(args[argid], argtype):
+                    raise TypeError(
+                        f"{fn.__name__}() got an unexpected positional argument type: '{arg}' should be a {argtype}")
+            return fn_(args, kwargs)
+        
+        return wrapped
+
+    return wrapper
 
 
 # EXERCICE 1
@@ -52,16 +79,16 @@ BaseUPMC = [('GARGA', 'Amel', 20231343, [12, 8, 11, 17, 9]),
 
 
 # QUESTION 1
-@checkType
+@strictType()
 def note_moyenne(notes: list) -> float:
     """
 
     Description
-    ----------
+    -----------
     Return the average of list by adding
     every item of list and divide the sum by the list lenght.
 
-    Parameters
+    argeters
     ----------
     notes : LIST
         The liste you want to know the average.
@@ -76,16 +103,16 @@ def note_moyenne(notes: list) -> float:
 
 
 # QUESTION 2
-@checkType
+@strictType()
 def moyenne_generale(data: list) -> float:
     """
 
     Description
-    ----------
+    -----------
     Get the average from all sudent from a database by adding
     every student average and divide the sum by the student number.
 
-    Parameters
+    argeters
     ----------
     data : LIST
         The database where you search the average.
@@ -100,17 +127,17 @@ def moyenne_generale(data: list) -> float:
 
 
 # QUESTION 3
-@checkType
+@strictType()
 def top_etudiant(data: list) -> tuple:
     """
 
     Description
-    ----------
+    -----------
     Get the top student from a database by creating a dictionnary of
     average by student, and then return the (name : str, firstname : str)
     of the maximum average.
 
-    Parameters
+    argeters
     ----------
     data : LIST
         The database where you search the top student.
@@ -125,18 +152,18 @@ def top_etudiant(data: list) -> tuple:
 
 
 # QUESTION 4
-@checkType
+@strictType(False)
 def recherche_moyenne(nId: int, data: list) -> float:
     """
 
     Description
-    ----------
+    -----------
     Get the average of a student from a database by
     checking every student id until it found it and
     return the student average.
 
-    Parameters
-    ----------    
+    argeters
+    ----------
     nId : STRING
         The student id.
 
@@ -163,16 +190,16 @@ Dessert = {'gateau chocolat': ('chocolat', 'oeuf', 'farine', 'sucre', 'beurre'),
 
 
 # QUESTION 1
-@checkType
+@strictType()
 def nb_ingredients(data: dict, nId: str) -> int:
     """
 
     Description
-    ----------
+    -----------
     Get the number of ingredient needed in a recipe just with the len() function.
 
-    Parameters
-    ----------    
+    argeters
+    ----------
     data : DICTIONARY
         The database where you search the recipe.
 
@@ -189,7 +216,7 @@ def nb_ingredients(data: dict, nId: str) -> int:
 
 
 # QUESTION 2
-@checkType
+@strictType()
 def recette_avec(data: dict, nId: str) -> list:
     """
 
@@ -197,8 +224,8 @@ def recette_avec(data: dict, nId: str) -> list:
     ----------
     Get the recipes with a special ingredient.
 
-    Parameters
-    ----------    
+    argeters
+    ----------
     data : DICTIONARY
         The database where you search the recipes.
 
@@ -215,17 +242,17 @@ def recette_avec(data: dict, nId: str) -> list:
 
 
 # QUESTION 3
-@checkType
+@strictType()
 def tous_ingredients(data: dict) -> list:
     """
 
     Description
-    ----------
+    -----------
     Get all the ingredients used in a recipes database by
     appending it to a new list if the ingredient isn't aleready in the list.
 
-    Parameters
-    ----------    
+    argeters
+    ----------
     data : DICTIONARY
         The database where you want to know the ingredients.
 
@@ -235,23 +262,23 @@ def tous_ingredients(data: dict) -> list:
         All the ingredients found.
 
     """
-    return list(set([i for r in data for i in data[r]]))
+    return list({i for r in data for i in data[r]})
 
 
 # QUESTION 4
-@checkType
+@strictType()
 def table_ingredients(data: dict) -> dict:
     """
 
     Description
-    ----------
+    -----------
     Sort the ingredients with all the recipes they're used by
     adding every recipe where the ingredient is used
     to the list of recipes used by ingredient
-    in a dictionnary. 
+    in a dictionnary.
 
-    Parameters
-    ----------    
+    argeters
+    ----------
     data : DICTIONARY
         The database where you want to know the ingredients.
 
@@ -259,24 +286,24 @@ def table_ingredients(data: dict) -> dict:
     -------
     DICTIONNARY
         The ingredients sorted.
-        
+
     """
     return {i: [r for r in data if i in data[r]] for i in tous_ingredients(data)}
 
 
 # QUESTION 5
-@checkType
+@strictType()
 def ingredient_principal(data: dict) -> str:
     """
 
     Description
-    ----------
+    -----------
     Get the most used ingredients by creating a dictionnary of
     the number of time the ingredient is use by ingredient, and then
-    return the maximum used ingredient. 
+    return the maximum used ingredient.
 
-    Parameters
-    ----------    
+    argeters
+    ----------
     data : DICTIONARY
         The database where you want to know the ingredients.
 
@@ -290,16 +317,16 @@ def ingredient_principal(data: dict) -> str:
 
 
 # QUESTION 6
-@checkType
+@strictType()
 def recettes_sans(data: dict, nId: str) -> dict:
     """
 
     Description
-    ----------
+    -----------
     Sort a recipes database without all the recipe who use a special ingredient.
 
-    Parameters
-    ----------    
+    argeters
+    ----------
     data : DICTIONARY
         The database where you want to know the ingredients.
 
@@ -322,7 +349,7 @@ if __name__ == "__main__":
 
     # EXERCICE 1
 
-    print(note_moyenne([12, 8, 14, 6, 5, 15]))
+    print(note_moyenne([12, 8, 14, 6, 5, 15],))
     print(note_moyenne([]))
 
     print(moyenne_generale(BaseUPMC))
