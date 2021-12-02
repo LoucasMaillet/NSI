@@ -2,7 +2,7 @@
 """
 TP3 Python: dictionary, list and tuple (n_uplet)
 
-Finished am 20:08 01/12/21.
+Finished at 17:03 am 02/12/21.
 By Lucas Maillet.
 """
 
@@ -36,10 +36,10 @@ def strictType(check_return=True):
 
     """
     def wrapper(fn):
-        
+
         annotations = fn.__annotations__
         fn_ = lambda args, kwargs : fn(*args, **kwargs)
-        
+
         if 'return' in annotations:
             restype = annotations.pop('return')
             if check_return:
@@ -47,7 +47,7 @@ def strictType(check_return=True):
                     res = fn(*args, **kwargs)
                     if not isinstance(res, restype): raise TypeError(f"{fn.__name__}() return an unexpected type, should be a {restype}")
                     return res
-                    
+
         annotations = annotations.items()
 
         @wraps(fn)
@@ -61,7 +61,7 @@ def strictType(check_return=True):
                     raise TypeError(
                         f"{fn.__name__}() got an unexpected positional argument type: '{arg}' should be a {argtype}")
             return fn_(args, kwargs)
-        
+
         return wrapped
 
     return wrapper
@@ -88,7 +88,7 @@ def note_moyenne(notes: list) -> float:
     Return the average of list by adding
     every item of list and divide the sum by the list lenght.
 
-    argeters
+    Parameters
     ----------
     notes : LIST
         The liste you want to know the average.
@@ -112,7 +112,7 @@ def moyenne_generale(data: list) -> float:
     Get the average from all sudent from a database by adding
     every student average and divide the sum by the student number.
 
-    argeters
+    Parameters
     ----------
     data : LIST
         The database where you search the average.
@@ -137,7 +137,7 @@ def top_etudiant(data: list) -> tuple:
     average by student, and then return the (name : str, firstname : str)
     of the maximum average.
 
-    argeters
+    Parameters
     ----------
     data : LIST
         The database where you search the top student.
@@ -162,9 +162,9 @@ def recherche_moyenne(nId: int, data: list) -> float:
     checking every student id until it found it and
     return the student average.
 
-    argeters
+    Parameters
     ----------
-    nId : STRING
+    nId : INT
         The student id.
 
     data : LIST
@@ -198,7 +198,7 @@ def nb_ingredients(data: dict, nId: str) -> int:
     -----------
     Get the number of ingredient needed in a recipe just with the len() function.
 
-    argeters
+    Parameters
     ----------
     data : DICTIONARY
         The database where you search the recipe.
@@ -224,7 +224,7 @@ def recette_avec(data: dict, nId: str) -> list:
     ----------
     Get the recipes with a special ingredient.
 
-    argeters
+    Parameters
     ----------
     data : DICTIONARY
         The database where you search the recipes.
@@ -251,7 +251,7 @@ def tous_ingredients(data: dict) -> list:
     Get all the ingredients used in a recipes database by
     appending it to a new list if the ingredient isn't aleready in the list.
 
-    argeters
+    Parameters
     ----------
     data : DICTIONARY
         The database where you want to know the ingredients.
@@ -277,7 +277,7 @@ def table_ingredients(data: dict) -> dict:
     to the list of recipes used by ingredient
     in a dictionnary.
 
-    argeters
+    Parameters
     ----------
     data : DICTIONARY
         The database where you want to know the ingredients.
@@ -302,7 +302,7 @@ def ingredient_principal(data: dict) -> str:
     the number of time the ingredient is use by ingredient, and then
     return the maximum used ingredient.
 
-    argeters
+    Parameters
     ----------
     data : DICTIONARY
         The database where you want to know the ingredients.
@@ -325,7 +325,7 @@ def recettes_sans(data: dict, nId: str) -> dict:
     -----------
     Sort a recipes database without all the recipe who use a special ingredient.
 
-    argeters
+    Parameters
     ----------
     data : DICTIONARY
         The database where you want to know the ingredients.
