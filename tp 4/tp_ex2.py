@@ -118,9 +118,8 @@ def genere_csv(data: list, file_path: str):
 
     """
     with open(f"{file_path}.csv", 'w') as file:
-        for year, pop in data:
-            file.write(f"{year};{pop}\n")
-
+        for line in data:
+            file.write(f"{';'.join(map(str, line))}\n")
 
 # EXERCICE 6
 def pop_tranche_age(data: list) -> dict:
@@ -189,7 +188,7 @@ if __name__ == "__main__":
     trace_graph(scinde_liste(population_0_19))
 
     # EXERCICE 5
-    genere_csv(population_0_19, "population_0_19")
+    genere_csv(population_0_19, "csv_0_19")
 
     # EXERCICE 6 - 7
     create_window("Exercice 6 - 7 - 8 - 9")
