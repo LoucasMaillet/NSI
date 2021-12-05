@@ -15,16 +15,15 @@ if __name__ == "__main__":
     with open("ballonsonde.csv") as file:
         data = [l.split(";") for l in file.readlines()]
 
-    label_x, label_y = data.pop(0)
-    alts = []
-    temps = []
+    x_label, y_label = data.pop(0)
+    x_data, y_data = [], []
 
-    for alt, temp in data:
-        alts.append(int(alt))
-        temps.append(float(temp))
+    for x, y in data:
+        x_data.append(int(x))
+        y_data.append(float(y))
 
-    plot(alts, temps, "-", label="T°C = f(altitude)", linewidth=2)
-    xlabel(label_x)
-    ylabel(label_y)
+    plot(x_data, y_data, "-", label="T°C = f(altitude)", linewidth=2)
+    xlabel(x_label)
+    ylabel(y_label)
     legend()
     show()
