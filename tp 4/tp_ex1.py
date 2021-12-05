@@ -12,18 +12,19 @@ from pylab import plot, xlabel, ylabel, legend, show
 
 if __name__ == "__main__":
 
+    valeurs_alt, valeurs_temp = [], []
+
     with open("ballonsonde.csv") as file:
-        data = [l.split(";") for l in file.readlines()]
-
-    x_label, y_label = data.pop(0)
-    x_data, y_data = [], []
-
-    for x, y in data:
-        x_data.append(int(x))
-        y_data.append(float(y))
-
-    plot(x_data, y_data, "-", label="T°C = f(altitude)", linewidth=2)
-    xlabel(x_label)
-    ylabel(y_label)
+        
+        labelx, labely = file.readline().rstrip().split(";")
+        
+        for line in file.readlines():
+            alt, temp = line.split(";")
+            valeurs_alt.append(int(alt))
+            valeurs_temp.append(float(temp))
+            
+    plot(valeurs_alt, valeurs_temp, "-", label="T°C = f(altitude)", linewidth=2)
+    xlabel(labelx)
+    ylabel(labely)
     legend()
     show()

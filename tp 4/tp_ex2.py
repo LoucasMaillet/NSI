@@ -29,33 +29,6 @@ def create_window(title: str):
     ylabel("Population")
 
 
-# EXERCICE 1
-def get_file(file_path: str) -> list:
-    """
-
-    Description
-    -----------
-    Return an array from a .csv file.
-
-    Parameters
-    ----------
-    file_path : STRING
-        The file location.
-
-    Returns
-    -------
-    res : list
-        The file data.
-
-    """
-    res = []
-    with open(f"{file_path}.csv") as file:
-        for p in file.readlines():
-            year, age, pop = p.split(";")
-            res.append([int(year), age, int(pop)])
-    return res
-
-
 # EXERCICE 2
 def pop_o_19(data: list) -> list:
     """
@@ -101,8 +74,7 @@ def scinde_liste(data: list) -> list:
         All the populations from data.
 
     """
-    years = []
-    pops = []
+    years, pops = [], []
     for year, pop in data:
         years.append(year)
         pops.append(pop)
@@ -184,7 +156,7 @@ def pop_total(data: list) -> list:
 
     Description
     -----------
-    Sort data into a list of tuple [(year, population_total), ... ].
+    Sort data into a list of tuple [(year, pop_total_for_year), ... ].
 
     Parameters
     ----------
@@ -196,10 +168,10 @@ def pop_total(data: list) -> list:
     res : LIST
         The total of population by years.
 
-    """
+    """    
     res = {}
     for year, _, pop in data:
-        res[year] = res[year] + pop if year in res else pop
+        res[year] = res.get(year, 0) + pop
     return list(res.items())
 
 
@@ -207,8 +179,9 @@ def pop_total(data: list) -> list:
 if __name__ == "__main__":
 
     # EXERCICE 1
-    contenu_fichier = get_file("Population")
-
+    with open("Population.csv") as file:
+        contenu_fichier = [[int(year), age, int(pop)] for line in file.readlines() for year, age, pop in (line.split(";"),)]
+            
     # EXERCICE 2
     population_0_19 = pop_o_19(contenu_fichier)
 
