@@ -88,7 +88,7 @@ def note_moyenne(notes: list) -> float:
         The average of liste.
 
     """
-    return round(sum(notes)/(len(notes) or 1), 2)
+    return round(sum(notes)/(len(notes)), 2) if notes != [] else 0.0
 
 
 # QUESTION 2
