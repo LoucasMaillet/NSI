@@ -17,7 +17,7 @@ def strictType(check_return=True):
     """
 
     Description
-    ----------
+    -----------
     Wrap a function to overide it if the specified arguments
     passed haven't the type required.
 
@@ -45,7 +45,7 @@ def strictType(check_return=True):
             if check_return:
                 def fn_(args, kwargs):
                     res = fn(*args, **kwargs)
-                    if not isinstance(res, restype): raise TypeError(f"{fn.__name__}() return an unexpected type, should be a {restype}")
+                    if not isinstance(res, restype): raise TypeError(f"{fn.__name__}() return an unexpected type, should be an instance of {restype}")
                     return res
 
         annotations = annotations.items()
@@ -56,10 +56,10 @@ def strictType(check_return=True):
                 if arg in kwargs:
                     if not isinstance(kwargs[arg], argtype):
                         raise TypeError(
-                            f"{fn.__name__}() got an unexpected keyword argument type: '{arg}' should be a {argtype}")
+                            f"{fn.__name__}() got an unexpected keyword argument type: '{arg}' should be an instance of {argtype}")
                 elif argid < len(args) and not isinstance(args[argid], argtype):
                     raise TypeError(
-                        f"{fn.__name__}() got an unexpected positional argument type: '{arg}' should be a {argtype}")
+                        f"{fn.__name__}() got an unexpected positional argument type: '{arg}' should be an instance of {argtype}")
             return fn_(args, kwargs)
 
         return wrapped
@@ -67,16 +67,7 @@ def strictType(check_return=True):
     return wrapper
 
 
-# EXERCICE 1
-
-
-BaseUPMC = [('GARGA', 'Amel', 20231343, [12, 8, 11, 17, 9]),
-            ('POLO', 'Marcello', 20342241, [9, 11, 19, 3]),
-            ('AMANGEAI', 'Hildegard', 20244229, [15, 11, 7, 14, 12]),
-            ('DENT', 'Arthur', 42424242, [8, 4, 9, 4, 12, 5]),
-            ('ALEZE', 'Blaise', 30012024, [17, 15, 20, 14, 18, 16, 20]),
-            ('D2', 'R2', 10100101, [10, 10, 10, 10, 10, 10])]
-
+## EXERCICE 1
 
 # QUESTION 1
 @strictType()
@@ -179,14 +170,7 @@ def recherche_moyenne(nId: int, data: list) -> float:
     return {s[2]: note_moyenne(s[3]) for s in data}.get(nId)
 
 
-# EXERCICE 2
-
-
-Dessert = {'gateau chocolat': ('chocolat', 'oeuf', 'farine', 'sucre', 'beurre'),
-           'gateau yaourt': ('yaourt', 'oeuf', 'farine', 'sucre'),
-           'crepes': ('oeuf', 'farine', 'lait'),
-           'quatre-quarts': ('oeuf', 'farine', 'beurre', 'sucre'),
-           'kouign amann': ('farine', 'beurre', 'sucre')}
+## EXERCICE 2
 
 
 # QUESTION 1
@@ -342,12 +326,19 @@ def recettes_sans(data: dict, nId: str) -> dict:
     return {r: data[r] for r in data if not nId in data[r]}
 
 
-# TESTS
+## TESTS
 
 
 if __name__ == "__main__":
 
     # EXERCICE 1
+    
+    BaseUPMC = [('GARGA', 'Amel', 20231343, [12, 8, 11, 17, 9]),
+                ('POLO', 'Marcello', 20342241, [9, 11, 19, 3]),
+                ('AMANGEAI', 'Hildegard', 20244229, [15, 11, 7, 14, 12]),
+                ('DENT', 'Arthur', 42424242, [8, 4, 9, 4, 12, 5]),
+                ('ALEZE', 'Blaise', 30012024, [17, 15, 20, 14, 18, 16, 20]),
+                ('D2', 'R2', 10100101, [10, 10, 10, 10, 10, 10])]
 
     print(note_moyenne([12, 8, 14, 6, 5, 15],))
     print(note_moyenne([]))
@@ -361,6 +352,12 @@ if __name__ == "__main__":
     print(recherche_moyenne(2024129111, BaseUPMC))
 
     # EXERCICE 2
+
+    Dessert = {'gateau chocolat': ('chocolat', 'oeuf', 'farine', 'sucre', 'beurre'),
+            'gateau yaourt': ('yaourt', 'oeuf', 'farine', 'sucre'),
+            'crepes': ('oeuf', 'farine', 'lait'),
+            'quatre-quarts': ('oeuf', 'farine', 'beurre', 'sucre'),
+            'kouign amann': ('farine', 'beurre', 'sucre')}
 
     print(nb_ingredients(Dessert, 'gateau chocolat'))
 
