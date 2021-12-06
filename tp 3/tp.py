@@ -55,11 +55,9 @@ def strictType(check_return=True):
             for arg_key, [arg, arg_type] in enumerate(annotations):
                 if arg in kwargs:
                     if not isinstance(kwargs[arg], arg_type):
-                        raise TypeError(
-                            f"{fn.__name__}() got an unexpected keyword argument type: '{arg}' should be an instance of {arg_type}")
+                        raise TypeError(f"{fn.__name__}() got an unexpected keyword argument type: '{arg}' should be an instance of {arg_type}")
                 elif arg_key < len(args) and not isinstance(args[arg_key], arg_type):
-                    raise TypeError(
-                        f"{fn.__name__}() got an unexpected positional argument type: '{arg}' should be an instance of {arg_type}")
+                    raise TypeError(f"{fn.__name__}() got an unexpected positional argument type: '{arg}' should be an instance of {arg_type}")
             return fn_(args, kwargs)
 
         return wrapped
