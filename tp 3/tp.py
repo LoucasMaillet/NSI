@@ -18,7 +18,7 @@ def strictType(check_return=True):
 
     Description
     -----------
-    Wrap a function to overide it if the specified arguments
+    Wrap a function to overkeye it if the specified arguments
     passed haven't the type required.
 
     Parameters
@@ -52,14 +52,14 @@ def strictType(check_return=True):
 
         @wraps(fn)
         def wrapped(*args, **kwargs):
-            for argid, [arg, argtype] in enumerate(annotations):
+            for arg_key, [arg, arg_type] in enumerate(annotations):
                 if arg in kwargs:
-                    if not isinstance(kwargs[arg], argtype):
+                    if not isinstance(kwargs[arg], arg_type):
                         raise TypeError(
-                            f"{fn.__name__}() got an unexpected keyword argument type: '{arg}' should be an instance of {argtype}")
-                elif argid < len(args) and not isinstance(args[argid], argtype):
+                            f"{fn.__name__}() got an unexpected keyword argument type: '{arg}' should be an instance of {arg_type}")
+                elif arg_key < len(args) and not isinstance(args[arg_key], arg_type):
                     raise TypeError(
-                        f"{fn.__name__}() got an unexpected positional argument type: '{arg}' should be an instance of {argtype}")
+                        f"{fn.__name__}() got an unexpected positional argument type: '{arg}' should be an instance of {arg_type}")
             return fn_(args, kwargs)
 
         return wrapped
@@ -77,7 +77,7 @@ def note_moyenne(notes: list) -> float:
     Description
     -----------
     Return the average of list by adding
-    every item of list and divide the sum by the list lenght.
+    every item of list and divkeye the sum by the list lenght.
 
     Parameters
     ----------
@@ -101,7 +101,7 @@ def moyenne_generale(data: list) -> float:
     Description
     -----------
     Get the average from all sudent from a database by adding
-    every student average and divide the sum by the student number.
+    every student average and divkeye the sum by the student number.
 
     Parameters
     ----------
@@ -144,19 +144,19 @@ def top_etudiant(data: list) -> tuple:
 
 # QUESTION 4
 @strictType(False)
-def recherche_moyenne(nId: int, data: list) -> float:
+def recherche_moyenne(key: int, data: list) -> float:
     """
 
     Description
     -----------
     Get the average of a student from a database by
-    checking every student id until it found it and
+    checking every student key until it found it and
     return the student average.
 
     Parameters
     ----------
-    nId : INT
-        The student id.
+    key : INT
+        The student key.
 
     data : LIST
         The database where you search the student average.
@@ -167,7 +167,7 @@ def recherche_moyenne(nId: int, data: list) -> float:
         The student's average.
 
     """
-    return {s[2]: note_moyenne(s[3]) for s in data}.get(nId)
+    return {s[2]: note_moyenne(s[3]) for s in data}.get(key)
 
 
 ## EXERCICE 2
@@ -175,7 +175,7 @@ def recherche_moyenne(nId: int, data: list) -> float:
 
 # QUESTION 1
 @strictType()
-def nb_ingredients(data: dict, nId: str) -> int:
+def nb_ingredients(data: dict, key: str) -> int:
     """
 
     Description
@@ -187,7 +187,7 @@ def nb_ingredients(data: dict, nId: str) -> int:
     data : DICTIONARY
         The database where you search the recipe.
 
-    nId : STRING
+    key : STRING
         The recipe's name.
 
     Returns
@@ -196,12 +196,12 @@ def nb_ingredients(data: dict, nId: str) -> int:
         The recipe's length.
 
     """
-    return len(data[nId])
+    return len(data[key])
 
 
 # QUESTION 2
 @strictType()
-def recette_avec(data: dict, nId: str) -> list:
+def recette_avec(data: dict, key: str) -> list:
     """
 
     Description
@@ -213,7 +213,7 @@ def recette_avec(data: dict, nId: str) -> list:
     data : DICTIONARY
         The database where you search the recipes.
 
-    nId : STRING
+    key : STRING
         The ingredient's name.
 
     Returns
@@ -222,7 +222,7 @@ def recette_avec(data: dict, nId: str) -> list:
         The recipes with this ingredient.
 
     """
-    return [recette for recette in data if nId in data[recette]]
+    return [recette for recette in data if key in data[recette]]
 
 
 # QUESTION 3
@@ -302,7 +302,7 @@ def ingredient_principal(data: dict) -> str:
 
 # QUESTION 6
 @strictType()
-def recettes_sans(data: dict, nId: str) -> dict:
+def recettes_sans(data: dict, key: str) -> dict:
     """
 
     Description
@@ -314,7 +314,7 @@ def recettes_sans(data: dict, nId: str) -> dict:
     data : DICTIONARY
         The database where you want to know the ingredients.
 
-    nId : STRING
+    key : STRING
         The ingredients you don't want to use.
 
     Returns
@@ -323,7 +323,7 @@ def recettes_sans(data: dict, nId: str) -> dict:
         The database sorted.
 
     """
-    return {r: data[r] for r in data if not nId in data[r]}
+    return {r: data[r] for r in data if not key in data[r]}
 
 
 ## TESTS
