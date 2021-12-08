@@ -121,6 +121,7 @@ def genere_csv(data: list, file_path: str):
         for line in data:
             file.write(f"{';'.join(map(str, line))}\n")
 
+
 # EXERCICE 6
 def pop_tranche_age(data: list) -> dict:
     """
@@ -167,10 +168,10 @@ def pop_total(data: list) -> list:
     res : LIST
         The total of population by years.
 
-    """    
+    """
     res = {}
     for year, _, pop in data:
-        res[year] = res.get(year, 0) + pop
+        res[year] = res[year] + pop if year in res else pop
     return list(res.items())
 
 
@@ -180,7 +181,7 @@ if __name__ == "__main__":
     # EXERCICE 1
     with open("Population.csv") as file:
         contenu_fichier = [[int(year), age, int(pop)] for line in file.readlines() for year, age, pop in (line.split(";"),)]
-            
+
     # EXERCICE 2
     population_0_19 = pop_o_19(contenu_fichier)
 
