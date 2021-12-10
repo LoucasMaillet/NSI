@@ -7,7 +7,7 @@ Implémentation avec modification du mot à trouver (version 2)
 """
 
 from dessin_pendu import dessin_pendu, Frame
-from jeu_pendu_v1 import importer_mots, choisir_mot, construire_mot_partiel, ajouter_lettre
+from jeu_pendu_v1 import importer_mots, choisir_mot, construire_mot_partiel
 
 
 def modifier_liste_mots(liste_mots: list, mot_choisi: str, lettres: list) -> str:
@@ -26,7 +26,7 @@ def modifier_liste_mots(liste_mots: list, mot_choisi: str, lettres: list) -> str
 
     Returns
     -------
-    res : TYPE LIST
+    TYPE LIST
         DESCRIPTION : The list sorted.
 
     """

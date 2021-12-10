@@ -43,7 +43,7 @@ class Frame:
         self.heigth = heigth
         self.clear = CLEAR
 
-    def __call__(self, *content: str) -> str:
+    def __call__(self, *content: str):
         """
 
         Description
@@ -57,8 +57,7 @@ class Frame:
 
         """
         self.clear()
-        print(self.center_y('\n\n'.join(self.center_x(line)
-              for line in content)))
+        print(self.center_y('\n\n'.join(self.center_x(line) for line in content)))
 
     def center_x(self, text: str) -> str:
         """
