@@ -8,10 +8,16 @@ Module dessin_pendu
 
 
 from os import get_terminal_size, system, name
+from threading import Thread
 
-
-SH_WIDTH, SH_HEIGTH = get_terminal_size()
-CLEAR = (lambda: system('cls')) if name == 'nt' else (lambda: system('clear'))
+if name == 'nt': # for windows
+    # TODO : if you run this on powershell or cmd, uncomment the lines bellow
+    SH_WIDTH, SH_HEIGTH = 100, 20 # get_terminal_size()
+    clear = lambda: None # system("cls")
+    
+else : # for linux
+    SH_WIDTH, SH_HEIGTH = get_terminal_size()
+    clear = lambda: print('\033c')
 
 
 class Frame:
@@ -21,9 +27,8 @@ class Frame:
     -----------
     Use to display content in shell.
 
-    """
-
-    def __init__(self, width: int = SH_WIDTH, heigth: int = SH_HEIGTH):
+    """    
+    def __init__(self, width: int = SH_WIDTH, heigth: int = SH_HEIGTH - 1):
         """
 
         Description
@@ -41,7 +46,7 @@ class Frame:
         """
         self.width = width
         self.heigth = heigth
-        self.clear = CLEAR
+        self.__loop_state = False
 
     def __call__(self, *content: str):
         """
@@ -56,8 +61,8 @@ class Frame:
             DESCRIPTION : The text to show.
 
         """
-        self.clear()
-        print(self.center_y('\n\n'.join(self.center_x(line) for line in content)))
+        clear()
+        print(self.center_y('\n'.join(self.center_x(line) for line in content)))
 
     def center_x(self, text: str) -> str:
         """
@@ -122,6 +127,38 @@ class Frame:
         margin = " "*(self.width//2 - offset)
         return '\n'.join(f"{margin}{line}" for line in content.split('\n'))
 
+    def loop(self, fn):
+        """
+        
+        Description
+        -----------
+        Create a frame loop for animation for instance.
+        Call loop_stop to stop it.
+            
+        Parameters
+        ----------
+        fn : TYPE FUNCTION
+            DESCRIPTION : The function called in loop.    
+        
+        """
+        self.__loop_state = True
+        def loop():
+            frame = 0
+            while self.__loop_state:
+                fn(frame)
+                frame+=1                
+        Thread(target=loop).start()
+
+    def loop_stop(self):
+        """
+        
+        Description
+        -----------
+        Stop the loop.  
+        
+        """
+        self.__loop_state = False
+
 
 def dessin_pendu(index):
     """
@@ -139,7 +176,6 @@ def dessin_pendu(index):
         DESCRIPTION : chaine de caractères représentant le dessin à afficher
 
     """
-
     tab = [
         """
        +-------+
