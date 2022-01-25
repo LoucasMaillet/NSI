@@ -1,14 +1,3 @@
-# NSI
-All my school's projects when I learn to program seriously.
+# Numérique et Sciences Informatiques
 
-# Functional Programming
-
-- pr1
-- pr2
-- tp2
-- tp3
-- tp4
-
-# Object-Oriented Programming
-
-Well nothing actually
+Tout les projets du lycée demandés en cours, beaucoup de truc inutiles et de "features" mais on voit l'évolution.
