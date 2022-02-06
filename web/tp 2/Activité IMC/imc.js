@@ -1,45 +1,39 @@
-"use strict"
+﻿"use strict"
 
-const BU_CALC = document.querySelector("button"),
-      P_IMC = document.getElementById("imc"),
-      P_MEAN = document.getElementById("interpretation");
+const FORM = document.querySelector("form"),
+      [I_WEIGHT, I_HEIGHT] = document.querySelectorAll("input"),
+      [S_IMC, S_MEAN] = document.querySelectorAll("span");
 
-var data = {}, 
-    imc = {
-	details: {
-	    "Anorexie ou dénutrition": 16,
-	    "Maigreur": 16.5,
-	    "Maigreur": 18.5,
-	    "Corpulence normale": 25,
-	    "Surpoids": 30,
-	    "Obésité modérée (Classe 1)": 35,
-	    "Obésité élevée (Classe 2)": 40
-	},
-	hover: "Obésité morbide ou massive"	
+var imc = {
+        details: {
+            16: ["Anorexie ou dénutrition", "blue"],
+            16.5: [ "Maigreur", "blue"],
+            18.5: ["Maigreur", "blue"],
+            25: ["Corpulence normale", "green"],
+            30: ["Surpoids", "yellow"],
+            35: ["Obésité moderée (Classe 1)", "red"],
+            40: ["Obésité élevée (Classe 2)", "red"]
+        },
+	   hover: ["Obésité morbide ou massive", "red"]
     };
 
-// Functions
-
-function getInput(input){
-    data[input.name] = parseFloat(input.value);
+function getIMC() {
+    return I_WEIGHT.value/I_HEIGHT.value**2;
 }
 
-function meanIMC(imc_V){
+function meanIMC(value){
     for(let i in imc.details) {
-	if (imc_V < imc.details[i]) return i;
+	   if (value < i) return imc.details[i];
     }
     return imc.hover;
 }
 
-function calcIMC(){
-    P_MEAN.textContent = meanIMC((P_IMC.textContent = data.poids/data.taille**2)) ;
+function chgIMC(){
+    [S_MEAN.textContent, FORM.className] = meanIMC((S_IMC.textContent = getIMC()));
 }
 
 // Setup
 
-document.querySelectorAll("input").forEach(input => {
-    input.oninput = () => getInput(input);
-    getInput(input);
-});
-calcIMC();
-BU_CALC.onclick = calcIMC;
+FORM.onsubmit = () => {chgIMC(); return false};
+S_IMC.textContent = "None";
+S_MEAN.textContent = "Please enter value.";
