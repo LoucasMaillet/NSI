@@ -209,6 +209,10 @@ a:hover p {
     transform: translateX(0);
 }
 
+button:active {
+    transform: scale(.9);
+}
+
 button:first-child:hover:before,
 button:last-child:hover:after {
     margin: 0 .25em;

@@ -157,10 +157,8 @@ document.body.onload = () => {
     // Create each sections
     SECTIONS.forEach(genSection);
     // Get & set current page
-    if (window.location.hash in sections) {
-        MAIN.scrollTo({ left: (current = sections[window.location.hash]).offsetLeft });
-    } else {
-        MAIN.scrollTo({ left: (current = MAIN.firstElementChild).offsetLeft });
+    if (!(current = sections[window.location.hash])) {
+        MAIN.scrollLeft = (current = MAIN.firstElementChild).offsetLeft;
     }
     current.className = current.time.className = "appear";
     TIMELINE.bar.style.width = current.percent;
