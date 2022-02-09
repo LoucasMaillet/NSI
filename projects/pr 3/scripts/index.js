@@ -6,7 +6,7 @@ const MAIN = document.querySelector("main"),
     TIMELINE = {
         bar: document.querySelector("object"),
         div: document.querySelector("footer>div")
-    }, 
+    },
     // Everything is based from https://en.wikipedia.org/wiki/History_of_Linux
     SECTIONS = [
         {
@@ -100,15 +100,14 @@ function setCurrent(section) {
  * @param {Object} {name, year, url, img, label, text} Content of section
  */
 function genSection({ name, year, url, img, label, text }) {
-    let id = `#${name.replace(/\s/g, '-')}`;
-    sections[id] = document.createElement("section");
-    sections[id].id = id;
-    sections[id].time = document.createElement('time');
-    sections[id].time.style.left = sections[id].percent = `${Math.round(100 / (SECTIONS.length - 1) * MAIN.childElementCount)}%`;
-    sections[id].time.textContent = year;
-    sections[id].time.onclick = () => setCurrent(sections[id]);
-    TIMELINE.div.appendChild(sections[id].time);
-    sections[id].innerHTML = `
+    let section = document.createElement("section");
+    sections[section.id = `#${name.replace(/\s/g, '-')}`] = section;
+    section.time = document.createElement('time');
+    section.time.style.left = section.percent = `${Math.round(100 / (SECTIONS.length - 1) * MAIN.childElementCount)}%`;
+    section.time.textContent = year;
+    section.time.onclick = () => setCurrent(section);
+    TIMELINE.div.appendChild(section.time);
+    section.innerHTML = `
         <a href="${url}" title="Click to see more">
             <img src="${img}">
             <div>
@@ -117,7 +116,7 @@ function genSection({ name, year, url, img, label, text }) {
                 <label>${label}</label>
             </div>
         </a>`;
-    MAIN.appendChild(sections[id]);
+    MAIN.appendChild(section);
 }
 
 /**
@@ -176,7 +175,7 @@ document.body.onload = () => {
     SECTIONS.forEach(genSection);
     // Get & set current page
     if (!(current = sections[window.location.hash])) {
-        MAIN.scrollLeft = (current = MAIN.firstElementChild).offsetLeft;
+        MAIN.scrollLeft = (current = MAIN.firstElementChild).offsetLeft
     }
     current.className = current.time.className = "appear";
     TIMELINE.bar.style.width = current.percent;
