@@ -59,7 +59,8 @@ const MAIN = document.querySelector("main"),
         }
     ];
 
-var sections = {},
+var current,
+    sections = {},
     size = {
         width: window.innerWidth * .5,
         height: window.innerHeight * .5
@@ -67,8 +68,7 @@ var sections = {},
     cursor = {
         x: 0,
         y: 0
-    },
-    current;
+    };
 
 //* Functions
 
@@ -79,7 +79,7 @@ var sections = {},
 function getCursor({ clientX, clientY }) {
     cursor.x = clientX - size.width;
     cursor.y = clientY - size.height;
-};
+}
 
 /**
  * Navigate to another section
@@ -92,7 +92,6 @@ function setCurrent(section) {
     TIMELINE.bar.style.width = current.percent;
     // WARNING : Technicaly this will turn in an endless event loop but idk how navigator fix it.
     if (window.location != current.id) window.location = current.id;
-
 }
 
 /**
