@@ -90,8 +90,7 @@ function setCurrent(section) {
     MAIN.scrollTo({ left: (current = section).offsetLeft, behavior: "smooth" });
     current.className = current.time.className = "appear";
     TIMELINE.bar.style.width = current.percent;
-    // WARNING : Technicaly this will turn in an endless event loop but idk how navigator fix it.
-    if (window.location != current.id) window.location = current.id;
+    window.location = current.id;
 }
 
 /**
@@ -161,7 +160,8 @@ window.onkeydown = ({ key }) => {
 // Fix issues with scroll position & window size
 window.onresize = () => {
     MAIN.scrollLeft = current.offsetLeft;
-    size = { width: window.innerWidth * .5, height: window.innerHeight * .5 };
+    size.width = window.innerWidth * .5;
+    size.height = window.innerHeight * .5;
 };
 // Get cursor position
 window.onmousemove = getCursor;
