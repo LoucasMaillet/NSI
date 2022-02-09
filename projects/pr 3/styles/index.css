@@ -226,7 +226,7 @@ button:last-child:hover:after {
     font-style: normal;
     font-weight: 300;
     font-display: swap;
-    src: url("/styles/Ubuntu.ttf") format("woff2");
+    src: url("Ubuntu.ttf") format("woff2");
 }
 
 @font-face {
@@ -234,15 +234,5 @@ button:last-child:hover:after {
     font-style: normal;
     font-weight: 300;
     font-display: swap;
-    src: url("/styles/Abel.ttf") format("woff2");
-}
-
-@keyframes typing {
-    from {
-        width: 0;
-    }
-
-    to {
-        width: 100%;
-    }
+    src: url("Abel.ttf") format("woff2");
 }
