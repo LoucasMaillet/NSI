@@ -127,7 +127,7 @@ function render() {
     current.firstElementChild.style.transform = `perspective(100em) rotateY(${cursor.x / size.width}rad) rotateX(${-cursor.y / size.height}rad)`;
     let x = cursor.x * -4 / size.width,
         y = cursor.y * -4 / size.height;
-    // MAIN.style.filter = `drop-shadow(var(--c-s-0) ${x}em ${y}em 4em) drop-shadow(var(--c-l-0) ${-x}em ${-y}em 1.5em)`;
+    MAIN.style.filter = `drop-shadow(var(--c-s-0) ${x}em ${y}em 4em) drop-shadow(var(--c-l-0) ${-x}em ${-y}em 1.5em)`;
     current.firstElementChild.firstElementChild.style.transform = `translate(${x}em, ${y}em)`;
     window.requestAnimationFrame(render);
 }
