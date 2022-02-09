@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 const MAIN = document.querySelector("main"),
     PREV = document.querySelector("button:first-of-type"),
