@@ -1,4 +1,4 @@
-"use strict" // Strict Vanilla JS
+"use strict"
 
 const MAIN = document.querySelector("main"),
     PREV = document.querySelector("button:first-of-type"),
@@ -6,7 +6,8 @@ const MAIN = document.querySelector("main"),
     TIMELINE = {
         bar: document.querySelector("object"),
         div: document.querySelector("footer>div")
-    }, // Everything is based from https://en.wikipedia.org/wiki/History_of_Linux
+    }, 
+    // Everything is based from https://en.wikipedia.org/wiki/History_of_Linux
     SECTIONS = [
         {
             name: "Linus Torwalds",
@@ -132,21 +133,31 @@ function render() {
     window.requestAnimationFrame(render);
 }
 
+/**
+ * Go to the next or first section
+ */
+function next() { setCurrent(current.nextElementSibling || MAIN.firstElementChild) }
+
+/**
+ * Go to the previous or last section
+ */
+function previous() { setCurrent(current.previousElementSibling || MAIN.lastElementChild) }
+
 //* Events
 
 // Previous button
-PREV.onclick = () => setCurrent(current.previousElementSibling || MAIN.lastElementChild);
+PREV.onclick = previous;
 PREV.ondblclick = () => setCurrent(MAIN.firstElementChild);
 // Next button
-NEXT.onclick = () => setCurrent(current.nextElementSibling || MAIN.firstElementChild);
+NEXT.onclick = next;
 NEXT.ondblclick = () => setCurrent(MAIN.lastElementChild);
 // Go to the correct section
 window.onhashchange = () => setCurrent(sections[window.location.hash] || MAIN.firstElementChild);
 // Keyboard navigation
 window.onkeydown = ({ key }) => {
     switch (key) {
-        case "ArrowLeft": setCurrent(current.previousElementSibling || MAIN.lastElementChild); break;
-        case "ArrowRight": setCurrent(current.nextElementSibling || MAIN.firstElementChild); break;
+        case "ArrowLeft": previous(); break;
+        case "ArrowRight": next(); break;
     }
 };
 // Fix issues with scroll position & window size
@@ -156,7 +167,7 @@ window.onresize = () => {
 };
 // Get cursor position
 window.onmousemove = getCursor;
-window.ontouchmove = ({touches}) => getCursor(touches[0]);
+window.ontouchmove = ({ touches }) => getCursor(touches[0]);
 
 //* Setup
 
