@@ -72,6 +72,15 @@ var sections = {},
 //* Functions
 
 /**
+ * Get current cursor or finger position from the center
+ * @param {Object} {clientX, clientY} Mouse / finger coordonates 
+ */
+function getCursor({ clientX, clientY }) {
+    cursor.x = clientX - size.width;
+    cursor.y = clientY - size.height;
+};
+
+/**
  * Navigate to another section
  * @param {HTMLElement} section The new section to go
  */
@@ -118,7 +127,7 @@ function render() {
     current.firstElementChild.style.transform = `perspective(100em) rotateY(${cursor.x / size.width}rad) rotateX(${-cursor.y / size.height}rad)`;
     let x = cursor.x * -4 / size.width,
         y = cursor.y * -4 / size.height;
-    MAIN.style.filter = `drop-shadow(var(--c-s-0) ${x}em ${y}em 4em) drop-shadow(var(--c-l-0) ${-x}em ${-y}em 1.5em)`;
+    // MAIN.style.filter = `drop-shadow(var(--c-s-0) ${x}em ${y}em 4em) drop-shadow(var(--c-l-0) ${-x}em ${-y}em 1.5em)`;
     current.firstElementChild.firstElementChild.style.transform = `translate(${x}em, ${y}em)`;
     window.requestAnimationFrame(render);
 }
@@ -145,11 +154,9 @@ window.onresize = () => {
     MAIN.scrollLeft = current.offsetLeft;
     size = { width: window.innerWidth * .5, height: window.innerHeight * .5 };
 };
-// Get cursor position from the center
-window.onmousemove = ({ clientX, clientY }) => {
-    cursor.x = clientX - size.width;
-    cursor.y = clientY - size.height;
-};
+// Get cursor position
+window.onmousemove = getCursor;
+window.ontouchmove = ({touches}) => getCursor(touches[0]);
 
 //* Setup
 
