@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta lang="fr">
+		<meta charset="UTF-8">
+		<title>IMC</title>
+        <link rel="stylesheet" href="imc.css">
+		<script defer src="imc.js"></script>
+	</head>
+	<body>
+		<h1>Calcul de l’indice de masse corporelle</h1>
+        <form>
+            <p>
+                <label for="poids">Votre poids (en kg) :</label>
+                <input type="text" placeholder="Enter weight" name = "poids" value=0 required/>
+            </p>
+            <p>
+                <label for="taille">Votre taille (en m) :</label>
+                <input type="text" placeholder="Enter height" name = "taille" value=0 required/>
+            </p>
+            <button type="submit">Calcul IMC</button>
+        </form>
+		<p>Valeur de l'IMC : <span></span></p>
+		<p>Interprétation de la valeur de l'IMC : <span></span></p>	
+	</body>
+</html>
