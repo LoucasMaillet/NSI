@@ -1,3 +1,3 @@
-# Coding a Webpage
+# Numérique et Sciences Informatiques
 
-Just a simple carousel of some contributors of linux, you can see [here](https://htmlpreview.github.io/?https://github.com/LoucasMaillet/NSI/blob/main/projects/pr%203/index.html)
+Tout les projets du lycée demandés en cours, beaucoup de truc inutiles et de "features" mais on voit l'évolution.
