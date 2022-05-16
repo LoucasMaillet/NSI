@@ -23,11 +23,25 @@
     border: none;
     color: var(--c-f-0);
     fill: var(--c-o-0);
+    
+    /* avoid blurry text issues */
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-font-smoothing: subpixel-antialiased;
 }
 
 body {
     inset: 2em 0;
     background: var(--c-b-0);
+}
+
+canvas {
+    top:0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    z-index: 5;
+    position: fixed;
 }
 
 h1 {

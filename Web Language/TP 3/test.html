@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+
+<head>
+    <meta charset="utf8">
+</head>
+
+
+<body>
+    <form>
+        <input type="text" oninput="javascript:console.log(this.value)"/>
+    </form>
+    <script>
+        const input = document.querySelector("input");
+        input.focus();
+        input.onblur = console.log
+    </script>
+</body>
+</html>
