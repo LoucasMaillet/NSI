@@ -1,17 +1,17 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env python3.10
 #coding: utf-8
 
 
 from tkinter import Event, Frame, Canvas, Tk
 from random import sample
-from typing import Generator
+from collections import deque
 
 
 class Cell(int):
 
     def __init__(self, _, rgb) -> None:
-        self.hex_color = "#%02x%02x%02x" % rgb
-        self.rgb_color = "%02d;%02d;%02d" % rgb
+        self.hex = "#%02x%02x%02x" % rgb
+        self.rgb = "%02d;%02d;%02d" % rgb
 
     def __new__(cls, v, *_) -> None:
         return super(Cell, cls).__new__(cls, v)
@@ -34,80 +34,82 @@ CL_SPREAD = Cell(0x2, (255, 5, 5))
 CL_INFECTED = Cell(0x3, (191, 191, 191))
 
 
-class AutoCell(list):
+class AutoMatrix(list):
 
-    def __init__(self, r: int, n: int) -> None:
-        list.__init__(self, ([CL_BLANK for j in range(n+2)]
-                      for i in range(r+2)))
-        self.c_spread = 0
-        self.c_uninfected = int(DENSITY*n*r)
-        self.c_infected = 0
-        self._r = r + 1
-        self._n = n + 1
-        self._queue = []
-        for i, j in sample([(i, j) for j in range(1, self._n) for i in range(1, self._r)], self.c_uninfected):
+    def __init__(self, rows: int, cols: int) -> None:
+        list.__init__(self, ([CL_BLANK for _ in range(cols)] for _ in range(rows)))
+        self.n_spread: int = 0
+        self.n_infected: int = 0
+        self.n_uninfected: int = int(DENSITY*cols*rows)
+        self._rows: int = rows
+        self._cols: int = cols
+        self._r_rows: range = range(rows)
+        self._r_cols: range = range(cols)
+        self._spreader: list = deque(maxlen=int(self.n_uninfected * .5)) # A top size of the potential spreader (sure overestimed)
+        for i, j in sample([(i, j) for j in range(self._cols) for i in range(self._rows)], self.n_uninfected):
             self[i][j] = CL_UNINFECTED
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         repr_ = ""
-        i = 1
-        while i < self._r:
+        for i in range(self._rows-1):
             repr_ += '['
-            j = 1
-            while j < self._n:
+            for j in range(self._cols-1):
                 repr_ += f"{self[i][j]}, "
-                j += 1
-            repr_ += f"{self[i][j]}],\n"
-            i += 1
+            repr_ += f"{self[i][-1]}],\n"
         repr_ += '['
-        j = 1
-        while j < self._n:
-            repr_ += f"{self[i][j]}, "
-            j += 1
-        repr_ += f"{self[i][j]}]"
+        for j in self._r_cols:
+            repr_ += f"{self[-1][j]}, "
+        repr_ += f"{self[-1][j]}]"
         return repr_
 
     def spread(self, i: int, j: int) -> bool:
-        i += self._r if i < 0 else 1
-        j += self._n if j < 0 else 1
-        if self[i][j] == CL_UNINFECTED:
-            self.c_uninfected -= 1
-            self.c_spread += 1
-            self._queue.append((i, j))
-            self[i][j] = CL_SPREAD
+        if i < 0:
+            i += self._rows
+        if j < 0:
+            j += self._cols
+        self.n_spread += 1
+        self.n_uninfected -= 1
+        self._spreader.appendleft((i, j))
 
-    def update(self) -> bool:
-        queue = []
-        for i, j in self._queue:
-            self[i][j] = CL_INFECTED
-            self.c_infected += 1
-            self.c_spread -= 1
-            for i_n, j_n in NEXTS:
-                n = (i + i_n, j + j_n)
-                if self[n[0]][n[1]] == CL_UNINFECTED:
-                    queue.append(n)
+    def update(self) -> None:
+        self.n_infected += self.n_spread
+        i = 0
+        for _ in range(self.n_spread):
+            coord = self._spreader.popleft()
+            self[coord[0]][coord[1]] = CL_INFECTED
+            for coord_next in NEXTS:
+                coord_ = (coord[0] + coord_next[0], coord[1] + coord_next[1])
+                if coord_[0] < 0 or coord_[0] == self._rows or \
+                        coord_[1] < 0 or coord_[1] == self._cols:
+                    continue
+                if self[coord_[0]][coord_[1]] == CL_UNINFECTED:
+                    self._spreader.append(coord_)
+                    i += 1
 
-        self._queue = []
-        for n in queue:
-            if self[n[0]][n[1]] == CL_UNINFECTED:
-                self[n[0]][n[1]] = CL_SPREAD
-                self.c_uninfected -= 1
-                self.c_spread += 1
-                self._queue.append(n)
+        self.n_spread = 0
+        for _ in range(i):
+            coord = self._spreader.popleft()
+            if self[coord[0]][coord[1]] == CL_UNINFECTED:
+                self[coord[0]][coord[1]] = CL_SPREAD
+                self._spreader.append(coord)
+                self.n_spread += 1
+        self.n_uninfected -= self.n_spread
 
 
-class AutoCellCanvas(AutoCell, Canvas):
+class AutoMatrixCanvas(AutoMatrix, Canvas):
 
-    def __init__(self, frame: Frame, width: int, height: int, r: int, n: int, upd_time: int = UPD_TIME, **kwargs) -> None:
-        AutoCell.__init__(self, r, n)
+    def __init__(self, frame: Frame, width: int, height: int, rows: int, cols: int, upd_time: int = UPD_TIME, **kwargs) -> None:
+        AutoMatrix.__init__(self, rows, cols)
         Canvas.__init__(self, frame, width=width, height=height, **kwargs)
-        self.c_height = height / r
-        self.c_width = width / n
+        self.c_height = height / rows
+        self.c_width = width / cols
         self.upd_time = upd_time
 
         def __listener_button_1__(ev: Event):
-            i, j = int(ev.y // self.c_height), int(ev.x // self.c_width)
+            i, j = int(ev.y // self.c_height - 1), int(ev.x // self.c_width - 1)
             self.spread(i, j)
+            x, y = j * self.c_width, i * self.c_height
+            self.create_rectangle(x, y, x + self.c_width, y + self.c_height, fill=self[i][j].hex, width=0)
 
         self.bind("<Button-1>", __listener_button_1__)
 
@@ -120,86 +122,78 @@ class AutoCellCanvas(AutoCell, Canvas):
         self.draw()
         self.pack()
 
-    def draw(self):
-        i = 1
-        while i < self._r:
-            j = 1
-            while j < self._n:
-                x, y = (j-1) * self.c_width, (i-1) * self.c_height
-                self.create_rectangle(x, y, x + self.c_width, y +
-                                      self.c_height, fill=self[i][j].hex_color, width=0)
-                j += 1
-            i += 1
+    def draw(self) -> None:
+        for i in self._r_rows:
+            for j in self._r_cols:
+                x, y = j * self.c_width, i * self.c_height
+                self.create_rectangle(x, y, x + self.c_width, y + self.c_height, fill=self[i][j].hex, width=0)
 
-    def __nexts__(self) -> Generator:
-        for i, j in self._queue:
-            self[i][j] = CL_INFECTED
-            self.c_infected += 1
-            self.c_spread -= 1
-            x, y = (j-1) * self.c_width, (i-1) * self.c_height
-            self.create_rectangle(x, y, x + self.c_width, y +
-                                self.c_height, fill=self[i][j].hex_color, width=0)
-            for i_n, j_n in NEXTS:
-                n = (i + i_n, j + j_n)
-                if self[n[0]][n[1]] == CL_UNINFECTED:
-                    yield n
+    def update(self) -> None:
+        self.n_infected += self.n_spread
+        i = 0
+        for _ in range(self.n_spread):
+            coord = self._spreader.popleft()
+            self[coord[0]][coord[1]] = CL_INFECTED
+            x, y = coord[1] * self.c_width, coord[0] * self.c_height
+            self.create_rectangle(x, y, x + self.c_width, y + self.c_height, fill=self[coord[0]][coord[1]].hex, width=0)
+            for coord_next in NEXTS:
+                coord_ = (coord[0] + coord_next[0], coord[1] + coord_next[1])
+                if coord_[0] < 0 or coord_[0] == self._rows or \
+                        coord_[1] < 0 or coord_[1] == self._cols:
+                    continue
+                if self[coord_[0]][coord_[1]] == CL_UNINFECTED:
+                    self._spreader.append(coord_)
+                    i += 1
 
-    def __spread__(self, nexts: list) -> Generator:
-        for n in nexts:
-            if self[n[0]][n[1]] == CL_UNINFECTED:
-                self[n[0]][n[1]] = CL_SPREAD
-                self.c_uninfected -= 1
-                self.c_spread += 1
-                x, y = (n[1]-1) * self.c_width, (n[0]-1) * self.c_height
-                self.create_rectangle(x, y, x + self.c_width, y +
-                                      self.c_height, fill=self[n[0]][n[1]].hex_color, width=0)
-                yield n
-                
-    def update(self):
-        self._queue = [*self.__spread__([*self.__nexts__()])]
-        
+        self.n_spread = 0
+        for _ in range(i):
+            coord = self._spreader.popleft()
+            if self[coord[0]][coord[1]] == CL_UNINFECTED:
+                self[coord[0]][coord[1]] = CL_SPREAD
+                x, y = coord[1] * self.c_width, coord[0] * self.c_height
+                self.create_rectangle(x, y, x + self.c_width, y + self.c_height, fill=self[coord[0]][coord[1]].hex, width=0)
+                self._spreader.append(coord)
+                self.n_spread += 1
+        self.n_uninfected -= self.n_spread
 
 
-class AutoCellShell(AutoCell):
+class AutoMatrixShell(AutoMatrix):
 
-    def __init__(self, r: int, n: int) -> None:
-        AutoCell.__init__(self, r, n)
+    def __init__(self, rows: int, cols: int) -> None:
+        AutoMatrix.__init__(self, rows, cols)
 
     def draw(self) -> None:
         print("\033c", end='')
-        i = 1
-        while i < self._r:
-            j = 1
-            while j < self._n:
-                print(f"\033[48;2;{self[i][j].rgb_color}m   \033[0m", end='')
-                j += 1
+        for row in self:
+            for cell in row:
+                print(f"\033[48;2;{cell.rgb}m   \033[0m", end='')
             print()
-            i += 1
 
-    def update(self):
-        queue = []
-        for i, j in self._queue:
-            self[i][j] = CL_INFECTED
-            self.c_infected += 1
-            self.c_spread -= 1
-            print(
-                f"\033[?25l\033[{i};{j*2-1}f\033[48;2;{self[i][j].rgb_color}m   \033[0m")
-            for i_n, j_n in NEXTS:
-                n = (i + i_n, j + j_n)
-                if self[n[0]][n[1]] == CL_UNINFECTED:
-                    queue.append(n)
+    def update(self) -> None:
+        self.n_infected += self.n_spread
+        i = 0
+        for _ in range(self.n_spread):
+            coord = self._spreader.popleft()
+            self[coord[0]][coord[1]] = CL_INFECTED
+            print(f"\033[?25l\033[{coord[0]};{coord[1]*3-2}f\033[48;2;{self[coord[0]][coord[1]].rgb}m   \033[0m")
+            for coord_next in NEXTS:
+                coord_ = (coord[0] + coord_next[0], coord[1] + coord_next[1])
+                if coord_[0] < 0 or coord_[0] == self._rows or \
+                        coord_[1] < 0 or coord_[1] == self._cols:
+                    continue
+                if self[coord_[0]][coord_[1]] == CL_UNINFECTED:
+                    self._spreader.append(coord_)
+                    i += 1
 
-        self._queue = []
-        for n in queue:
-            if self[n[0]][n[1]] == CL_UNINFECTED:
-                self[n[0]][n[1]] = CL_SPREAD
-                self.c_uninfected -= 1
-                self.c_spread += 1
-                self._queue.append(n)
-                print(
-                    f"\033[?25l\033[{n[0]};{n[1]*2-1}f\033[48;2;{self[n[0]][n[1]].rgb_color}m   \033[0m")
-        print("\033[u", end='')
-
+        self.n_spread = 0
+        for _ in range(i):
+            coord = self._spreader.popleft()
+            if self[coord[0]][coord[1]] == CL_UNINFECTED:
+                self[coord[0]][coord[1]] = CL_SPREAD
+                print(f"\033[?25l\033[{coord[0]};{coord[1]*3-2}f\033[48;2;{self[coord[0]][coord[1]].rgb}m   \033[0m")
+                self._spreader.append(coord)
+                self.n_spread += 1
+        self.n_uninfected -= self.n_spread
 
 if __name__ == "__main__":
 
@@ -208,8 +202,8 @@ if __name__ == "__main__":
     # from time import sleep
     # from os import get_terminal_size
     # from time import sleep
-    # n, r = get_terminal_size()
-    # fm = AutoCellShell(r-1, n//3)
+    # cols, rows = get_terminal_size()
+    # fm = AutoMatrixShell(rows-1, cols//3)
     # fm.draw()
     # fm.spread(0, 0)
     # cursor = [0, 0]
@@ -217,7 +211,7 @@ if __name__ == "__main__":
     # def __key_event__(key):
     #     print(key)
     #     # if key == Key.up:
-    #     #     if cursor[0] < fm._r:
+    #     #     if cursor[0] < fm._rows:
     #     #         cursor[0] += 1
     #     #         print("\033[s", end='')
     #     # elif key == Key.down:
@@ -233,21 +227,16 @@ if __name__ == "__main__":
     # while True:
     #     fm.update()
     #     # fm.draw()
-    #     sleep(UPD_TIME)
-    
-    fm = AutoCellShell(5, 10)
-    fm.draw()    
-    
-    exit()
+    #     sleep(UPD_TIME * 1e-1)
 
     gui = Tk()
     gui.title(f"Spreading Cellular Automata")
     frame = Frame()
     frame.pack()
-    f = 10
-    fm = AutoCellCanvas(frame,
-                        1920/2,
-                        1080/2,
-                        9*f,
-                        16*f)
+    f = 40
+    fm = AutoMatrixCanvas(frame,
+                          1920/2,
+                          1080/2,
+                          9*f,
+                          16*f)
     fm.mainloop()

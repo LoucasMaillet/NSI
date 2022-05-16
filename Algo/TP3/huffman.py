@@ -22,6 +22,20 @@ class CodeSet(set):
     Just the corresponding set of (bin, item) of a Huffman Tree
     """
 
+    def __from_tuple__(self, content, bin_str: str) -> None:
+        if isinstance(content, tuple):
+            self.__from_tuple__(content[0], f"{bin_str}0")
+            self.__from_tuple__(content[1], f"{bin_str}1")
+        else:
+            self.add((bin_str, content))
+
+    @classmethod
+    def from_tuple(cls, content: tuple) -> 'CodeSet':
+        codeSet = cls()
+        codeSet.__from_tuple__(content[0], '0')
+        codeSet.__from_tuple__(content[1], '1')
+        return codeSet
+
     def encode(self, decoded: Iterable) -> bin:
         """Encode some Iterable
 
@@ -37,7 +51,7 @@ class CodeSet(set):
             for k, v in self:
                 if v == item:
                     encoded += k
-        return bin(int(encoded, 2))  # turn to binary data
+        return int(encoded, 2).to_bytes(len(encoded) // 8 +1, byteorder=BYTES_ORDER)  # turn to binary data
 
     def decode(self, encoded: bin) -> tuple:
         """Decode some binary
@@ -129,6 +143,9 @@ class Leaf:
 
         codeSet.add((binary, self.content))
 
+    def to_tuple(self) -> str:
+        return self.content
+
 
 class Node:
 
@@ -216,6 +233,14 @@ class Node:
         self.right.setBin(codeSet, f"{binary}0")
         self.left.setBin(codeSet, f"{binary}1")
 
+    def to_tuple(self) -> tuple:
+        """Convert to tuple
+
+        Returns:
+            tuple[tuple | Any]: The node in tuple format
+        """
+        return (self.left.to_tuple(), self.right.to_tuple())
+
 
 class Root(Node):
 
@@ -299,16 +324,34 @@ def occurence(content: Iterable) -> ItemsView:
     return occ.items()
 
 
-with open("tour_du_monde.txt") as file:
-    text = file.read()
-    root = Root(occurence(text))
-    code = root.codeSet
-    encoded = code.encode(text)
-    len_text = len(text) * 8
-    len_encoded = len(str(encoded))
-    print(encoded)
-    print(root.tree)
-    print(len_text, len_encoded)
-    print(round((len_text - len_encoded) / len_text * 100, 2))
-    with open("tour_du_monde_encoded.bin", "wb") as file:
-        file.write(encoded)
+if __name__ == "__main__":
+
+    import timeit
+    # For bytes manipulation
+    BYTES_CODEMAP = 3
+    BYTES_ORDER = "big"
+
+    def encode():
+        with open("tour_du_monde.txt") as file:
+            text = file.read()
+            # import re
+            # text = [w for w in re.split(r"(\s+)|(\n)", text) if w != None]
+            root = Root(occurence(text))
+            # print(root.tree)
+            codemap = str(root.to_tuple()).encode("utf-8")
+            with open("tour_du_monde_compressed.bin", 'wb') as file:
+                # root = hufftree(occurence(bytes_))
+                # codemap = str(root.to_tuple()).encode("utf-8")
+                file.write((len(codemap)).to_bytes(BYTES_CODEMAP, byteorder=BYTES_ORDER) + codemap + root.codeSet.encode(text))
+
+    def decode():
+        with open("tour_du_monde_compressed.bin", "rb") as file:
+            encoded = file.read()
+            code_len = int.from_bytes(
+                encoded[0:BYTES_CODEMAP], byteorder=BYTES_ORDER) + BYTES_CODEMAP
+            codemap = CodeSet.from_tuple(eval(encoded[BYTES_CODEMAP:code_len]))
+            with open("tour_du_monde_uncompressed.txt", 'w') as file:
+                file.write(''.join(v for v in codemap.decode(encoded[code_len:])))
+
+    print(f"Encoding took approximatly {timeit.timeit(encode, number=1)} ms")
+    print(f"Decoding took approximatly {timeit.timeit(decode, number=1)} ms")

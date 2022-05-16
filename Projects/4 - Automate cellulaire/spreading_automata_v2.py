@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env python3.10
 #coding: utf-8
 
 
@@ -239,7 +239,7 @@ if __name__ == "__main__":
     gui.title(f"- {seed} - Spreading Cellular Automata")
     frame = Frame()
     frame.pack()
-    f = 25
+    f = 10
     fm = AutoCellCanvas(frame,
                         1920/2,
                         1080/2,

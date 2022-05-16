@@ -13,7 +13,7 @@ By Lucas Maillet.
 from functools import wraps
 
 
-def strictType(check_return=True):
+def strict(return_=True):
     """
 
     Description
@@ -26,7 +26,7 @@ def strictType(check_return=True):
     fn : FUNCTION
         The function you want to supervise.
 
-    check_return : BOOLEAN
+    return_ : BOOLEAN
         If you want to check the result type or not.
 
     Returns
@@ -41,23 +41,22 @@ def strictType(check_return=True):
         fn_ = lambda args, kwargs : fn(*args, **kwargs)
 
         if 'return' in annotations:
-            restype = annotations.pop('return')
-            if check_return:
+            type_ = annotations.pop('return')
+            if return_:
                 def fn_(args, kwargs):
                     res = fn(*args, **kwargs)
-                    if not isinstance(res, restype): raise TypeError(f"{fn.__name__}() return an unexpected type, should be an instance of {restype}")
+                    if not isinstance(res, type_): raise TypeError(f"{fn.__name__}() return an unexpected type, should be an instance of {type_}")
                     return res
 
         annotations = annotations.items()
-
         @wraps(fn)
         def wrapped(*args, **kwargs):
-            for arg_key, [arg, arg_type] in enumerate(annotations):
+            for arg_key, [arg, type_] in enumerate(annotations):
                 if arg in kwargs:
-                    if not isinstance(kwargs[arg], arg_type):
-                        raise TypeError(f"{fn.__name__}() got an unexpected keyword argument type: '{arg}' should be an instance of {arg_type}")
-                elif arg_key < len(args) and not isinstance(args[arg_key], arg_type):
-                    raise TypeError(f"{fn.__name__}() got an unexpected positional argument type: '{arg}' should be an instance of {arg_type}")
+                    if not isinstance(kwargs[arg], type_):
+                        raise TypeError(f"{fn.__name__}() got an unexpected keyword argument type: '{arg}' should be an instance of {type_}")
+                elif arg_key < len(args) and not isinstance(args[arg_key], type_):
+                    raise TypeError(f"{fn.__name__}() got an unexpected positional argument type: '{arg}' should be an instance of {type_}")
             return fn_(args, kwargs)
 
         return wrapped
@@ -68,7 +67,7 @@ def strictType(check_return=True):
 ## EXERCICE 1
 
 # QUESTION 1
-@strictType()
+@strict()
 def note_moyenne(notes: list) -> float:
     """
 
@@ -92,7 +91,7 @@ def note_moyenne(notes: list) -> float:
 
 
 # QUESTION 2
-@strictType()
+@strict()
 def moyenne_generale(data: list) -> float:
     """
 
@@ -116,7 +115,7 @@ def moyenne_generale(data: list) -> float:
 
 
 # QUESTION 3
-@strictType()
+@strict()
 def top_etudiant(data: list) -> tuple:
     """
 
@@ -141,7 +140,7 @@ def top_etudiant(data: list) -> tuple:
 
 
 # QUESTION 4
-@strictType(False)
+@strict(False)
 def recherche_moyenne(key: int, data: list) -> float:
     """
 
@@ -172,7 +171,7 @@ def recherche_moyenne(key: int, data: list) -> float:
 
 
 # QUESTION 1
-@strictType()
+@strict()
 def nb_ingredients(data: dict, key: str) -> int:
     """
 
@@ -198,7 +197,7 @@ def nb_ingredients(data: dict, key: str) -> int:
 
 
 # QUESTION 2
-@strictType()
+@strict()
 def recette_avec(data: dict, key: str) -> list:
     """
 
@@ -224,7 +223,7 @@ def recette_avec(data: dict, key: str) -> list:
 
 
 # QUESTION 3
-@strictType()
+@strict()
 def tous_ingredients(data: dict) -> list:
     """
 
@@ -248,7 +247,7 @@ def tous_ingredients(data: dict) -> list:
 
 
 # QUESTION 4
-@strictType()
+@strict()
 def table_ingredients(data: dict) -> dict:
     """
 
@@ -274,7 +273,7 @@ def table_ingredients(data: dict) -> dict:
 
 
 # QUESTION 5
-@strictType()
+@strict()
 def ingredient_principal(data: dict) -> str:
     """
 
@@ -299,7 +298,7 @@ def ingredient_principal(data: dict) -> str:
 
 
 # QUESTION 6
-@strictType()
+@strict()
 def recettes_sans(data: dict, key: str) -> dict:
     """
 
@@ -345,7 +344,7 @@ if __name__ == "__main__":
 
     print(top_etudiant(BaseUPMC))
 
-    print(recherche_moyenne(20244229, BaseUPMC))
+    print(recherche_moyenne("20244229", BaseUPMC))
     print(recherche_moyenne(20342241, BaseUPMC))
     print(recherche_moyenne(2024129111, BaseUPMC))
 
