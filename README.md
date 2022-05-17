@@ -1,3 +1,3 @@
-# Numérique et Sciences Informatiques
+## Hello world!
 
-Tout les projets du lycée demandés en cours, beaucoup de truc inutiles et de "features" mais on voit l'évolution.
+Here I store all my code made for school from college to idk today.
